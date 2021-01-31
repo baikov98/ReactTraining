@@ -3,15 +3,20 @@ import React, { useEffect, useState } from 'react'
 const proxyurl = "https://cors-anywhere.herokuapp.com/"
 const url = 'http://api.football-data.org/v2/competitions'
 
-/* function CompetitionItem(props) {
+function CompetitionItem(props) {
 
   return (
-    
+    <tr>
+      <td>{props.area}</td>
+      <td>{props.ccode}</td>
+      <td>{props.league}</td>
+    </tr>
   )
-} */
+} 
 
 function CompetitionsList(props) {
   console.log(props.response.competitions[1])
+  const leagues = props.response.competitions
   return (
     <table>
       <thead>
@@ -22,7 +27,9 @@ function CompetitionsList(props) {
         </tr>
       </thead>
       <tbody>
-        
+        {leagues.map((val, i) => (
+          <CompetitionItem area={val.area.name} ccode={val.area.countryCode} league={val.name} key={i}/>
+        ))}
       </tbody>
     </table>
   )
