@@ -14,6 +14,7 @@ function CompetitionItem(props) {
 
   return (
     <tr>
+      <td><img src={props.iconUrl} className='country__icon'/></td>
       <td>{props.area}</td>
       <td>{props.ccode}</td>
       <td>{props.league}</td>
@@ -22,18 +23,16 @@ function CompetitionItem(props) {
 } 
 
 function CompetitionsList(props) {
-  //console.log(props.response.competitions[1])
-
   const leagues = props.response.competitions
   const availableIDs = [2000, 2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
   const leagueArr = leagues.filter((val) => {
     return availableIDs.includes(val.id)
   })
-  console.log(leagueArr)
   return (
     <table>
       <thead>
       <tr>
+        <th>icon</th>
         <th>Region</th>
         <th>Country Code</th>
         <th>League</th>
@@ -42,7 +41,7 @@ function CompetitionsList(props) {
       </thead>
       <tbody>
         {leagueArr.map((val, i) => (
-          <CompetitionItem area={val.area.name} ccode={val.area.countryCode} league={val.name} key={i}/>
+          <CompetitionItem iconUrl={val.area.ensignUrl} area={val.area.name} ccode={val.area.countryCode} league={val.name} key={i}/>
         ))}
       </tbody>
     </table>
