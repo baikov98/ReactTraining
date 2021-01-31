@@ -1,4 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams
+} from "react-router-dom";
+
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/"
 const url = 'http://api.football-data.org/v2/competitions'
@@ -23,6 +31,8 @@ function CompetitionItem(props) {
 } 
 
 function CompetitionsList(props) {
+  //const { id } = useParams()
+  //console.log(id)
   const leagues = props.response.competitions
   const availableIDs = [2000, 2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
   const leagueArr = leagues.filter((val) => {
@@ -57,22 +67,22 @@ function CompetitionsList(props) {
 function App() {
   const [val, setVal] = useState(null)
   
-  const handleClick = () => {
+
+  useEffect(() => {
     console.log('fetch')
-    getTeams()
     fetch(url, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
         .then(response => response.json())
         .then(json => setVal(json))
-  }
-    
+  }, [])
+
   
   return (
+
     <div>
-      <input></input>
-      <button onClick={handleClick}>Найти</button>
+      <h1>Статистика ведущих турниров по футболу</h1>
       {val ? <div><CompetitionsList response={val} /></div> : <div> Loading...</div>}
-      
     </div>
+
   );
 }
 
