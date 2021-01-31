@@ -23,9 +23,13 @@ function CompetitionItem(props) {
 
 function CompetitionsList(props) {
   //console.log(props.response.competitions[1])
-  getTeams()
+
   const leagues = props.response.competitions
-  const availableIDs = [2000,2001,2002,2003,2013,2014,2015,2016,2017,2018,2019,2021]
+  const availableIDs = [2000, 2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
+  const leagueArr = leagues.filter((val) => {
+    return availableIDs.includes(val.id)
+  })
+  console.log(leagueArr)
   return (
     <table>
       <thead>
@@ -37,7 +41,7 @@ function CompetitionsList(props) {
         </tr>
       </thead>
       <tbody>
-        {leagues.map((val, i) => (
+        {leagueArr.map((val, i) => (
           <CompetitionItem area={val.area.name} ccode={val.area.countryCode} league={val.name} key={i}/>
         ))}
       </tbody>
