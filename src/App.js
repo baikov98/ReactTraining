@@ -26,19 +26,32 @@ function CompetitionItem(props) {
       <td>{props.area}</td>
       <td>{props.ccode}</td>
       <td>{props.league}</td>
+      <td>{props.teamLink}</td>
     </tr>
   )
 } 
 
 function CompetitionsList(props) {
-  //const { id } = useParams()
-  //console.log(id)
+  const { id } = useParams()
+  console.log(id)
   const leagues = props.response.competitions
   const availableIDs = [2000, 2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
   const leagueArr = leagues.filter((val) => {
                     return availableIDs.includes(val.id)
   })
+
+  const ItemsCompetition = leagueArr.map((val, i) => (
+    
+    <CompetitionItem iconUrl={val.area.ensignUrl} 
+                     area={val.area.name} 
+                     ccode={val.area.countryCode} 
+                     league={val.name} 
+                     teamLink={<Link to={`team/${val.id}`}>Команды</Link>}
+                     key={i}/>
+    
+  ))
   return (
+    <Router>
     <table>
       <thead>
       <tr>
@@ -50,15 +63,11 @@ function CompetitionsList(props) {
         </tr>
       </thead>
       <tbody>
-        {leagueArr.map((val, i) => (
-          <CompetitionItem iconUrl={val.area.ensignUrl} 
-                           area={val.area.name} 
-                           ccode={val.area.countryCode} 
-                           league={val.name} 
-                           key={i}/>
-        ))}
-      </tbody>
+
+        <Route path="/" children={ItemsCompetition}/>
+        </tbody>
     </table>
+    </Router>
   )
 }
 
@@ -75,14 +84,17 @@ function App() {
         .then(json => setVal(json))
   }, [])
 
-  
+  const MainPage = (<div>
+    {val ? <div><CompetitionsList response={val} /></div> : <div> Loading...</div>}
+  </div>)
+
   return (
-
-    <div>
-      <h1>Статистика ведущих турниров по футболу</h1>
-      {val ? <div><CompetitionsList response={val} /></div> : <div> Loading...</div>}
-    </div>
-
+    <Router>
+    <h1>Статистика ведущих турниров по футболу</h1>
+      <Switch>
+        <Route path="/" children={MainPage}/>
+      </Switch>
+    </Router>
   );
 }
 
