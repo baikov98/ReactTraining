@@ -4,18 +4,35 @@ import {
   Switch,
   Route,
   Link,
-  useParams
+  useParams,
+  useRouteMatch
 } from "react-router-dom";
 
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/"
 const url = 'http://api.football-data.org/v2/competitions'
-const teams = 'http://api.football-data.org/v2/competitions/2003/teams'
+const curl = 'http://api.football-data.org/v2/competitions/2021/matches'
 
 function getTeams() {
-  fetch(teams, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
+  fetch(curl, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
         .then(response => response.json())
         .then(json => console.log(json))
+}
+
+
+function TeamList(props) {
+  let id = useParams()
+
+  console.log(id.id)
+  return (
+    <Router>
+    <div>Team list component</div>
+    <Route path={`/${id.id}/teams`}>
+      <div>`id:  ${id.id}`</div>
+    </Route>
+
+    </Router>
+  )
 }
 
 function CompetitionItem(props) {
@@ -32,8 +49,6 @@ function CompetitionItem(props) {
 } 
 
 function CompetitionsList(props) {
-  const { id } = useParams()
-  console.log(id)
   const leagues = props.response.competitions
   const availableIDs = [2000, 2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
   const leagueArr = leagues.filter((val) => {
@@ -46,12 +61,12 @@ function CompetitionsList(props) {
                      area={val.area.name} 
                      ccode={val.area.countryCode} 
                      league={val.name} 
-                     teamLink={<Link to={`team/${val.id}`}>Команды</Link>}
+                     teamLink={<Link to={`/${val.id}/teams`}>Команды</Link>}
                      key={i}/>
     
   ))
   return (
-    <Router>
+ 
     <table>
       <thead>
       <tr>
@@ -63,36 +78,43 @@ function CompetitionsList(props) {
         </tr>
       </thead>
       <tbody>
-
-        <Route path="/" children={ItemsCompetition}/>
-        </tbody>
+              {ItemsCompetition}
+      </tbody>
     </table>
-    </Router>
+    
   )
 }
 
 
 
 function App() {
+
   const [val, setVal] = useState(null)
   
 
   useEffect(() => {
-    console.log('fetch')
+    getTeams()
     fetch(url, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
         .then(response => response.json())
         .then(json => setVal(json))
   }, [])
 
-  const MainPage = (<div>
-    {val ? <div><CompetitionsList response={val} /></div> : <div> Loading...</div>}
-  </div>)
-
   return (
     <Router>
     <h1>Статистика ведущих турниров по футболу</h1>
+    <Link to={'2016'}>2016</Link>
       <Switch>
-        <Route path="/" children={MainPage}/>
+        <Route path="/:id">
+          <TeamList />
+        </Route>
+
+        <Route path="/">
+          <div>
+                {val ? <div><CompetitionsList response={val} /></div> : <div> Loading...</div>}
+          </div>
+        </Route>
+        
+        
       </Switch>
     </Router>
   );
