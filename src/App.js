@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import { TeamList } from './pages/TeamList/TeamList'
 import { LeagueCal } from './pages/LeagueCal/LeagueCal'
-
+import PageNotFound from './pages/PageNotFound/PageNotFound'
 
 const url = 'http://api.football-data.org/v2/competitions'
 
@@ -96,12 +96,16 @@ function App() {
           <LeagueCal />
         </Route>
 
-        <Route path="/">
+        <Route path="/" exact>
           <div>
                 {val ? <div><CompetitionsList response={val} /></div> : <div> Loading...</div>}
           </div>
         </Route>
         
+        <Route path="/">
+          <PageNotFound />
+        </Route>
+
       </Switch>
     </Router>
   );
