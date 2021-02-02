@@ -6,6 +6,7 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
+import Team from '../Team/Team'
 
 const teams = 'http://api.football-data.org/v2/competitions/2021/teams'
 
@@ -14,7 +15,7 @@ function TeamItem(props) {
       <tr>
         <td>{ props.iconUrl ? <img src={props.iconUrl} className='country__icon'/> : null}</td>
         <td>{props.area}</td>
-        <td>{props.teamName}</td>
+        <td><Link to={`/${props.leagueid}/teams/${props.teamid}`}>{props.teamName}</Link></td>
         <td>{props.website}</td>
       </tr>
     )
@@ -36,7 +37,7 @@ function TeamItem(props) {
     return (
       <Router>
       <div>Team list component</div>
-      <Route path={`/${id.id}/teams`}>
+      <Route path={`/${id.id}/teams`} exact>
       <table>
         <thead>
         <tr>
@@ -48,12 +49,22 @@ function TeamItem(props) {
         </thead>
         <tbody>
           {val.map((i, index ) => (
-      <TeamItem key={index} iconUrl={i.crestUrl} area={i.area.name} teamName={i.name} website={i.website}/>
-    ))} 
+            <TeamItem  key={index} 
+                       iconUrl={i.crestUrl} 
+                       area={i.area.name} 
+                       teamName={i.name} 
+                       website={i.website}
+                       calendar={`/${id.id}/teams/`}
+                       teamid={i.id}
+                       leagueid={id.id}
+                       />
+                       ))} 
         </tbody>
       </table>
       </Route>
-  
+      <Route path={`/${id.id}/teams/:id`}>
+          <Team />
+      </Route>
       </Router>
     )
   }
