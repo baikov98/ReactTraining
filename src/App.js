@@ -11,24 +11,57 @@ import {
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/"
 const url = 'http://api.football-data.org/v2/competitions'
-const curl = 'http://api.football-data.org/v2/competitions/2021/matches'
+const teams = 'http://api.football-data.org/v2/competitions/2021/teams'
 
-function getTeams() {
-  fetch(curl, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
+function getIt() {
+  fetch(teams, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
         .then(response => response.json())
-        .then(json => console.log(json))
+        .then(json => console.log(json.teams))
 }
 
+function TeamItem(props) {
+  return (
+    <tr>
+      <td>{ props.iconUrl ? <img src={props.iconUrl} className='country__icon'/> : null}</td>
+      <td>{props.area}</td>
+      <td>{props.teamName}</td>
+      <td>{props.website}</td>
+    </tr>
+  )
+}
 
 function TeamList(props) {
-  let id = useParams()
+  const [val, setVal] = useState(null)
 
-  console.log(id.id)
+  useEffect(() => {
+    fetch(teams, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
+        .then(response => response.json())
+        .then(json => setVal(json.teams))
+  }, [])
+
+  let id = useParams()
+  console.log(val)
+  
+  if (!val) { return <div>Loading...</div>}
   return (
     <Router>
     <div>Team list component</div>
     <Route path={`/${id.id}/teams`}>
-      <div>`id:  ${id.id}`</div>
+    <table>
+      <thead>
+      <tr>
+        <th>icon</th>
+        <th>Region</th>
+        <th>Team Name</th>
+        <th>Website</th>
+        </tr>
+      </thead>
+      <tbody>
+        {val.map((i, index ) => (
+    <TeamItem key={index} iconUrl={i.crestUrl} area={i.area.name} teamName={i.name} website={i.website}/>
+  ))} 
+      </tbody>
+    </table>
     </Route>
 
     </Router>
@@ -63,10 +96,8 @@ function CompetitionsList(props) {
                      league={val.name} 
                      teamLink={<Link to={`/${val.id}/teams`}>Команды</Link>}
                      key={i}/>
-    
-  ))
+                     ))
   return (
- 
     <table>
       <thead>
       <tr>
@@ -85,15 +116,10 @@ function CompetitionsList(props) {
   )
 }
 
-
-
 function App() {
-
   const [val, setVal] = useState(null)
-  
-
   useEffect(() => {
-    getTeams()
+    //getIt()
     fetch(url, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
         .then(response => response.json())
         .then(json => setVal(json))
@@ -102,7 +128,7 @@ function App() {
   return (
     <Router>
     <h1>Статистика ведущих турниров по футболу</h1>
-    <Link to={'2016'}>2016</Link>
+    <h3><Link to='/'>Главная</Link></h3>
       <Switch>
         <Route path="/:id">
           <TeamList />
@@ -113,7 +139,6 @@ function App() {
                 {val ? <div><CompetitionsList response={val} /></div> : <div> Loading...</div>}
           </div>
         </Route>
-        
         
       </Switch>
     </Router>
