@@ -1,3 +1,4 @@
+import { func } from 'prop-types';
 import React, { useEffect, useState } from 'react'
 import {
   BrowserRouter as Router,
@@ -7,65 +8,18 @@ import {
   useParams,
   useRouteMatch
 } from "react-router-dom";
+import { TeamList } from './pages/TeamList/TeamList'
+import { LeagueCal } from './pages/LeagueCal/LeagueCal'
 
 
-const proxyurl = "https://cors-anywhere.herokuapp.com/"
 const url = 'http://api.football-data.org/v2/competitions'
-const teams = 'http://api.football-data.org/v2/competitions/2021/teams'
+
+const matches = 'http://api.football-data.org/v2/competitions/2021/matches'
 
 function getIt() {
-  fetch(teams, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
+  fetch(matches, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
         .then(response => response.json())
-        .then(json => console.log(json.teams))
-}
-
-function TeamItem(props) {
-  return (
-    <tr>
-      <td>{ props.iconUrl ? <img src={props.iconUrl} className='country__icon'/> : null}</td>
-      <td>{props.area}</td>
-      <td>{props.teamName}</td>
-      <td>{props.website}</td>
-    </tr>
-  )
-}
-
-function TeamList(props) {
-  const [val, setVal] = useState(null)
-
-  useEffect(() => {
-    fetch(teams, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
-        .then(response => response.json())
-        .then(json => setVal(json.teams))
-  }, [])
-
-  let id = useParams()
-  console.log(val)
-  
-  if (!val) { return <div>Loading...</div>}
-  return (
-    <Router>
-    <div>Team list component</div>
-    <Route path={`/${id.id}/teams`}>
-    <table>
-      <thead>
-      <tr>
-        <th>icon</th>
-        <th>Region</th>
-        <th>Team Name</th>
-        <th>Website</th>
-        </tr>
-      </thead>
-      <tbody>
-        {val.map((i, index ) => (
-    <TeamItem key={index} iconUrl={i.crestUrl} area={i.area.name} teamName={i.name} website={i.website}/>
-  ))} 
-      </tbody>
-    </table>
-    </Route>
-
-    </Router>
-  )
+        .then(json => console.log(json))
 }
 
 function CompetitionItem(props) {
@@ -77,6 +31,7 @@ function CompetitionItem(props) {
       <td>{props.ccode}</td>
       <td>{props.league}</td>
       <td>{props.teamLink}</td>
+      <td>{props.calLink}</td>
     </tr>
   )
 } 
@@ -94,18 +49,20 @@ function CompetitionsList(props) {
                      area={val.area.name} 
                      ccode={val.area.countryCode} 
                      league={val.name} 
-                     teamLink={<Link to={`/${val.id}/teams`}>Команды</Link>}
+                     teamLink={<Link to={`/${val.id}/teams`}>Teams</Link>}
+                     calLink={<Link to={`/${val.id}/calendar`}>Calendar</Link>}
                      key={i}/>
                      ))
   return (
     <table>
       <thead>
-      <tr>
-        <th>icon</th>
-        <th>Region</th>
-        <th>Country Code</th>
-        <th>League</th>
-        <th>Teams</th>
+        <tr>
+          <th>Flag</th>
+          <th>Region</th>
+          <th>Country<br/>code</th>
+          <th>Leagues</th>
+          <th>Teams</th>
+          <th>Calendar</th>
         </tr>
       </thead>
       <tbody>
@@ -115,6 +72,7 @@ function CompetitionsList(props) {
     
   )
 }
+
 
 function App() {
   const [val, setVal] = useState(null)
@@ -130,8 +88,12 @@ function App() {
     <h1>Статистика ведущих турниров по футболу</h1>
     <h3><Link to='/'>Главная</Link></h3>
       <Switch>
-        <Route path="/:id">
+        <Route path="/:id/teams" exact>
           <TeamList />
+        </Route>
+
+        <Route path="/:id/calendar" exact>
+          <LeagueCal />
         </Route>
 
         <Route path="/">
@@ -144,6 +106,5 @@ function App() {
     </Router>
   );
 }
-
 
 export default App;
