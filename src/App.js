@@ -15,17 +15,6 @@ import { LeagueCal } from './pages/LeagueCal/LeagueCal'
 import PageNotFound from './pages/PageNotFound/PageNotFound'
 import Team from './pages/Team/Team'
 
-const url = 'http://api.football-data.org/v2/competitions'
-
-const matches = 'http://api.football-data.org/v2/competitions/2021/matches'
-
-function getIt() {
-  fetch(matches, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
-        .then(response => response.json())
-        .then(json => console.log(json))
-}
-
-
 function App() {
 
   return (

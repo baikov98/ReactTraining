@@ -34,8 +34,9 @@ export function LeagueCal(props) {
           .then(response => response.json())
           .then(json => setVal(json))
     }, [])
-
+    console.log(val)
     if (!val) { return <div>Loading....</div>}
+
     return (
         <Router>
             <div>Calendar list component</div>
