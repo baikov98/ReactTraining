@@ -1,4 +1,4 @@
-import { func } from 'prop-types';
+
 import React, { useEffect, useState } from 'react'
 import {
   BrowserRouter as Router,
@@ -6,11 +6,14 @@ import {
   Route,
   Link,
   useParams,
-  useRouteMatch
+  useRouteMatch,
+  useHistory
 } from "react-router-dom";
+
 import { TeamList } from './pages/TeamList/TeamList'
 import { LeagueCal } from './pages/LeagueCal/LeagueCal'
 import PageNotFound from './pages/PageNotFound/PageNotFound'
+import Team from './pages/Team/Team'
 
 const url = 'http://api.football-data.org/v2/competitions'
 
@@ -20,6 +23,11 @@ function getIt() {
   fetch(matches, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
         .then(response => response.json())
         .then(json => console.log(json))
+}
+function getQuery() {
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    return params.get('query') || '';
 }
 
 function CompetitionItem(props) {
@@ -37,23 +45,39 @@ function CompetitionItem(props) {
 } 
 
 function CompetitionsList(props) {
+  
+  const query = getQuery()
+  const [search, setSearch] = useState(query)
+  
+  let history = useHistory()
   const leagues = props.response.competitions
-  const availableIDs = [2000, 2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
+  const availableIDs = [2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
   const leagueArr = leagues.filter((val) => {
                     return availableIDs.includes(val.id)
   })
-
-  const ItemsCompetition = leagueArr.map((val, i) => (
+  const inputHandle = (e) => {
+    console.log(1)
+    history.push(`/?query=${e.target.value}`)
+    setSearch(e.target.value)
+  }
+  const ItemsCompetition = leagueArr
+                            .filter((val, i) => {
+                              if (search === '') return val;
+                              if (val.name.toLowerCase().includes(search.toLowerCase())) return val
+                            })
+                            .map((val, i) => (
+                  <CompetitionItem iconUrl={val.area.ensignUrl} 
+                                  area={val.area.name} 
+                                  ccode={val.area.countryCode} 
+                                  league={val.name} 
+                                  teamLink={<Link to={`/${val.id}/teams`}>Teams</Link>}
+                                  calLink={<Link to={`/${val.id}/calendar`}>Calendar</Link>}
+                                  key={i}/>
+                                  ))
     
-    <CompetitionItem iconUrl={val.area.ensignUrl} 
-                     area={val.area.name} 
-                     ccode={val.area.countryCode} 
-                     league={val.name} 
-                     teamLink={<Link to={`/${val.id}/teams`}>Teams</Link>}
-                     calLink={<Link to={`/${val.id}/calendar`}>Calendar</Link>}
-                     key={i}/>
-                     ))
   return (
+    <>
+    <input type="text" onChange={inputHandle} value={search}/>
     <table>
       <thead>
         <tr>
@@ -69,7 +93,7 @@ function CompetitionsList(props) {
               {ItemsCompetition}
       </tbody>
     </table>
-    
+    </>
   )
 }
 
@@ -96,12 +120,16 @@ function App() {
           <LeagueCal />
         </Route>
 
+        <Route path="/teams/:id" exact>
+          <Team />
+        </Route> 
+
         <Route path="/" exact>
           <div>
                 {val ? <div><CompetitionsList response={val} /></div> : <div> Loading...</div>}
           </div>
         </Route>
-        
+
         <Route path="/">
           <PageNotFound />
         </Route>

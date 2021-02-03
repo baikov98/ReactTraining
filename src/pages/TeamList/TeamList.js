@@ -8,36 +8,36 @@ import {
 } from "react-router-dom";
 import Team from '../Team/Team'
 
-const teams = 'http://api.football-data.org/v2/competitions/2021/teams'
+
 
 function TeamItem(props) {
     return (
       <tr>
         <td>{ props.iconUrl ? <img src={props.iconUrl} className='country__icon'/> : null}</td>
         <td>{props.area}</td>
-        <td><Link to={`/${props.leagueid}/teams/${props.teamid}`}>{props.teamName}</Link></td>
+        <td><Link to={`/teams/${props.teamid}`}>{props.teamName}</Link></td>
         <td>{props.website}</td>
       </tr>
     )
   }
   
  export function TeamList(props) {
+    let { id } = useParams()
     const [val, setVal] = useState(null)
-  
+    const teams = `http://api.football-data.org/v2/competitions/${id}/teams`
     useEffect(() => {
       fetch(teams, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
           .then(response => response.json())
           .then(json => setVal(json.teams))
     }, [])
   
-    let id = useParams()
+    
     console.log(val)
     
     if (!val) { return <div>Loading...</div>}
     return (
-      <Router>
+        <>
       <div>Team list component</div>
-      <Route path={`/${id.id}/teams`} exact>
       <table>
         <thead>
         <tr>
@@ -61,10 +61,6 @@ function TeamItem(props) {
                        ))} 
         </tbody>
       </table>
-      </Route>
-      <Route path={`/${id.id}/teams/:id`}>
-          <Team />
-      </Route>
-      </Router>
+      </>
     )
   }
