@@ -8,7 +8,10 @@ import {
   useRouteMatch,
   useHistory
 } from "react-router-dom";
- 
+
+const url = 'http://api.football-data.org/v2/competitions'
+const availableIDs = [2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
+
 function getQuery() {
   let search = window.location.search;
   let params = new URLSearchParams(search);
@@ -30,21 +33,30 @@ function CompetitionItem(props) {
   } 
   
 export default function CompetitionsList(props) {
-    
     const query = getQuery()
+    let history = useHistory()
     const [search, setSearch] = useState(query)
     
-    let history = useHistory()
-    const leagues = props.response.competitions
-    const availableIDs = [2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
-    const leagueArr = leagues.filter((val) => {
+    const [data, setData] = useState(null)
+
+    useEffect(() => {
+      console.log('competitions')
+      fetch(url, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
+          .then(response => response.json())
+          .then(json => setData(json.competitions))
+    }, [])
+    if (!data) { return <div>Loading...</div>}
+
+    const leagueArr = data.filter((val) => {
                       return availableIDs.includes(val.id)
                       })
+                      
     const inputHandle = (e) => {
       if (e.target.value) history.push(`/?query=${e.target.value}`)
       else history.push('')
       setSearch(e.target.value)
     }
+    
     const ItemsCompetition = leagueArr
                     .filter((val, i) => {
                     if (search === '') return val;
