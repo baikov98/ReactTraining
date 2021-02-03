@@ -9,7 +9,7 @@ import {
   useRouteMatch,
   useHistory
 } from "react-router-dom";
-
+import CompetitionsList from './pages/CompetitionsList/CompetitionsList'
 import { TeamList } from './pages/TeamList/TeamList'
 import { LeagueCal } from './pages/LeagueCal/LeagueCal'
 import PageNotFound from './pages/PageNotFound/PageNotFound'
@@ -24,13 +24,13 @@ function getIt() {
         .then(response => response.json())
         .then(json => console.log(json))
 }
-function getQuery() {
+/* function getQuery() {
     let search = window.location.search;
     let params = new URLSearchParams(search);
     return params.get('query') || '';
-}
+} */
 
-function CompetitionItem(props) {
+/* function CompetitionItem(props) {
 
   return (
     <tr>
@@ -57,7 +57,8 @@ function CompetitionsList(props) {
   })
   const inputHandle = (e) => {
     console.log(1)
-    history.push(`/?query=${e.target.value}`)
+    if (e.target.value) history.push(`/?query=${e.target.value}`)
+    else history.push('')
     setSearch(e.target.value)
   }
   const ItemsCompetition = leagueArr
@@ -74,7 +75,7 @@ function CompetitionsList(props) {
                                   calLink={<Link to={`/${val.id}/calendar`}>Calendar</Link>}
                                   key={i}/>
                                   ))
-    
+     
   return (
     <>
     <input type="text" onChange={inputHandle} value={search}/>
@@ -95,7 +96,7 @@ function CompetitionsList(props) {
     </table>
     </>
   )
-}
+*/
 
 
 function App() {
