@@ -3,6 +3,9 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
+import TeamCompTable from './TeamCompTable'
+import YearSelect from '../../components/YearSelect/YearSelect'
+import DateFilter from '../../components/DateFilter/DateFilter'
 
 function ActiveCompetition(props) {
     return (
@@ -15,13 +18,23 @@ function ActiveCompetition(props) {
     )
 }
 
-
 export default function Team(props) {
-    const { id } = useParams()
-    const [ val, setVal ] = useState(null)
-    const teamurl = `http://api.football-data.org/v2/teams/${id}?dateFrom=2019-01-01&dateTo=2021-01-01`
+    const location = new URLSearchParams(window.location.search)
+    const yearParam = location.get('year') || '2021'; //getting year from url
+    const [year, setYear] = useState(yearParam)
+    const minDate = `${year}-01-01`
+    const maxDate = `${year}-12-31`
+    const [dateFrom, setDateFrom] = useState(location.get('dateFrom') || minDate)
+    const [dateTo, setDateTo] = useState(location.get('dateTo') || maxDate)
+
+    const dateFromSwitcher = (date) => setDateFrom(date)
+    const dateToSwitcher = (date) => setDateTo(date)
     
-   
+    const [ val, setVal ] = useState(null)
+    const yearSwitcher = (year) => setYear(year)
+
+    const { id } = useParams()
+    const teamurl = `http://api.football-data.org/v2/teams/${id}?dateFrom=2019-01-01&dateTo=2021-01-01`
     useEffect(() => {
         fetch(teamurl, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
           .then(response => response.json())
@@ -32,27 +45,17 @@ export default function Team(props) {
     return (
         <div>
         <h2>{val.name} ({val.area.name})</h2>
+        <DateFilter dateFromSwitcher={dateFromSwitcher}
+                    dateToSwitcher={dateToSwitcher}
+                    minDate={minDate}
+                    maxDate={maxDate}
+                    dateFrom={dateFrom}
+                    dateTo={dateTo}
+                        />
+        <YearSelect yearSwitcher={yearSwitcher} yearArray={[2021, 2020, 2019, 2018]}  />
         <h4>Active Competitions</h4>
-        <table>
-        <thead>
-        <tr>
-          <th>Region</th>
-          <th>League</th>
-          <th>Plan</th>
-          <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {val.activeCompetitions.map((i, index ) => (
-            <ActiveCompetition  key={index} 
-                                region={i.area.name}
-                                league={i.name}
-                                plan={i.plan}
-                                date={i.lastUpdated}
-                       />
-                       ))} 
-        </tbody>
-      </table>
+        <TeamCompTable year={year} array={val.activeCompetitions} />
       </div>
     )
 }
+

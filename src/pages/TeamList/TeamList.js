@@ -34,7 +34,7 @@ export default function TeamList(props) {
                                  className='country__icon'/> 
                                  {val.season.winner.name}</h4> : <></> }
       <SearchInput />
-      <YearSelect yearSwitcher={yearSwitcher} />
+      <YearSelect yearSwitcher={yearSwitcher} yearArray={[2020, 2019, 2018]} />
       <TeamListTable teamsArr={val.teams} />
       </>
     )

@@ -48,7 +48,7 @@ export function LeagueCal(props) {
       }, [year])
     
     if (!val) { return <div>Loading....</div>}
-
+      console.log(val)
     return (
         <>
             <h2>{val.competition.name} Calendar</h2>
@@ -61,7 +61,7 @@ export function LeagueCal(props) {
                         dateFrom={dateFrom}
                         dateTo={dateTo}
                         />
-            <YearSelect yearSwitcher={yearSwitcher}/>
+            <YearSelect yearSwitcher={yearSwitcher} yearArray={[2020, 2019, 2018]} />
             <LeagueCalItems itemsArray={val.matches}
                             dateFrom={dateFrom}
                             dateTo={dateTo} />
