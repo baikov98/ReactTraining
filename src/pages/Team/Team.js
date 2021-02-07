@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {
   Link,
   useParams,
+  useHistory
 } from "react-router-dom";
 import TeamCompTable from './TeamCompTable'
 import YearSelect from '../../components/YearSelect/YearSelect'
@@ -20,6 +21,7 @@ function ActiveCompetition(props) {
 
 export default function Team(props) {
     const location = new URLSearchParams(window.location.search)
+    const history = useHistory()
     const yearParam = location.get('year') || '2021'; //getting year from url
     const [year, setYear] = useState(yearParam)
     const minDate = `${year}-01-01`
@@ -32,7 +34,15 @@ export default function Team(props) {
     const dateToSwitcher = (date) => setDateTo(date)
 
     const [ val, setVal ] = useState(null)
-    const yearSwitcher = (year) => setYear(year)
+    const yearSwitcher = (year) => {
+      let loc = new URLSearchParams(window.location.search)
+      loc.delete('dateFrom')
+      loc.delete('dateTo')
+      history.push({search : loc.toString()})
+      setYear(year)
+      setDateFrom(`${year}-01-01`)
+      setDateTo(`${year}-12-31`)
+    }
 
     const { id } = useParams()
     const teamurl = `http://api.football-data.org/v2/teams/${id}`
