@@ -24,17 +24,18 @@ export default function Team(props) {
     const [year, setYear] = useState(yearParam)
     const minDate = `${year}-01-01`
     const maxDate = `${year}-12-31`
+    
     const [dateFrom, setDateFrom] = useState(location.get('dateFrom') || minDate)
     const [dateTo, setDateTo] = useState(location.get('dateTo') || maxDate)
-
+    
     const dateFromSwitcher = (date) => setDateFrom(date)
     const dateToSwitcher = (date) => setDateTo(date)
-    
+
     const [ val, setVal ] = useState(null)
     const yearSwitcher = (year) => setYear(year)
 
     const { id } = useParams()
-    const teamurl = `http://api.football-data.org/v2/teams/${id}?dateFrom=2019-01-01&dateTo=2021-01-01`
+    const teamurl = `http://api.football-data.org/v2/teams/${id}`
     useEffect(() => {
         fetch(teamurl, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
           .then(response => response.json())
@@ -42,6 +43,7 @@ export default function Team(props) {
     }, [])
     if (!val) {return <div>Loading ...</div>}
     console.log(val)
+    console.log('here', dateFrom)
     return (
         <div>
         <h2>{val.name} ({val.area.name})</h2>
@@ -54,7 +56,10 @@ export default function Team(props) {
                         />
         <YearSelect yearSwitcher={yearSwitcher} yearArray={[2021, 2020, 2019, 2018]}  />
         <h4>Active Competitions</h4>
-        <TeamCompTable year={year} array={val.activeCompetitions} />
+        <TeamCompTable year={year}
+                       array={val.activeCompetitions}
+                       dateFrom={dateFrom}
+                       dateTo={dateTo} />
       </div>
     )
 }

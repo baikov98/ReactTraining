@@ -28,16 +28,19 @@ function CompititionsTable({ children }) {
       </table>)
 }
 
-export default function TeamCompTable({ array, year }) {
+export default function TeamCompTable({ array, year, dateFrom, dateTo }) {
+    console.log(dateFrom, dateTo)
     const filteredByYear = array.filter((val) => {
-        console.log( 'here', new Date(val.lastUpdated).getFullYear(), year, (new Date(val.lastUpdated).getFullYear() == year))
         return (new Date(val.lastUpdated).getFullYear() == year)
     })
-    
+    const filteredByDate = filteredByYear.filter((val) => {
+      console.log((new Date(val.lastUpdated)).toLocaleDateString(), dateFrom )
+      return (new Date(val.lastUpdated) >= new Date(dateFrom) && new Date(val.lastUpdated) <= new Date(dateTo))
+    })
     
     return (
         <CompititionsTable>
-            {filteredByYear.map((i, index) => (
+            {filteredByDate.map((i, index) => (
                 <TableItem key={index} i={i} />
             ))}
         </CompititionsTable>

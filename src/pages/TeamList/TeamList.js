@@ -22,7 +22,7 @@ export default function TeamList(props) {
           .then(json => setVal(json))
     }, [year])
     useEffect(() => {}, [window.location.search])
-
+    console.log(val)
     if (!val) { return <div>Loading...</div>}
     return (
         <>
@@ -34,7 +34,9 @@ export default function TeamList(props) {
                                  className='country__icon'/> 
                                  {val.season.winner.name}</h4> : <></> }
       <SearchInput />
-      <YearSelect yearSwitcher={yearSwitcher} yearArray={[2020, 2019, 2018]} />
+      <YearSelect yearSwitcher={yearSwitcher} 
+                  yearArray={[2020, 2019, 2018]}
+                   />
       <TeamListTable teamsArr={val.teams} />
       </>
     )
