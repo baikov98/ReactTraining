@@ -1,18 +1,15 @@
 import React, { useEffect, useState,  } from 'react'
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link,
   useParams,
-  useRouteMatch,
   useLocation
 } from "react-router-dom"; 
-import SearchInput, { getQuery } from '../../components/SearchInput/SearchInput'
+
+import SearchInput from '../../components/SearchInput/SearchInput'
 
 const matches = 'http://api.football-data.org/v2/competitions/2021/matches'
 const url = 'http://api.football-data.org/v2/competitions'
-const availableIDs = [2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
+const availableIDs = [2000, 2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
 
 function getIt() {
   fetch(matches, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
@@ -39,7 +36,7 @@ export default function CompetitionsList(props) {
 
     const [data, setData] = useState(null)
     let location = useLocation()
-    useEffect(() => {}, [location.search])
+    useEffect(() => {console.log(location)}, [location.search])
     useEffect(() => {
       console.log('competitions')
       //getIt()
@@ -55,7 +52,7 @@ export default function CompetitionsList(props) {
                       return availableIDs.includes(val.id)
                       })
     
-    const query = getQuery()
+    const query = new URLSearchParams(window.location.search).get('query') || '';
     const ItemsCompetition = leagueArr
                     .filter((val, i) => {
                     if (query === '') return val;
@@ -81,7 +78,7 @@ export default function CompetitionsList(props) {
             <th>Flag</th>
             <th>Region</th>
             <th>Country<br/>code</th>
-            <th>Leagues</th>
+            <th>League</th>
             <th>Teams</th>
             <th>Calendar</th>
             <th>Start<br/>Date</th>

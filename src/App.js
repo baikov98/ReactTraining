@@ -10,7 +10,7 @@ import {
   useHistory
 } from "react-router-dom";
 import CompetitionsList from './pages/CompetitionsList/CompetitionsList'
-import { TeamList } from './pages/TeamList/TeamList'
+import TeamList from './pages/TeamList/TeamList'
 import { LeagueCal } from './pages/LeagueCal/LeagueCal'
 import PageNotFound from './pages/PageNotFound/PageNotFound'
 import Team from './pages/Team/Team'
