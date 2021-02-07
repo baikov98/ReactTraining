@@ -18,7 +18,7 @@ export function LeagueCal(props) {
     const history = useHistory()
     const location = new URLSearchParams(window.location.search)
     const [val, setVal] = useState(null)
-    const [year, setYear] = useState(location.get('year') || '2020')
+    const [year, setYear] = useState(location.get('year') || '2021')
     const minDate = `${year}-01-01`
     const maxDate = `${year}-12-31`
     const [dateFrom, setDateFrom] = useState(location.get('dateFrom') || minDate)
@@ -40,7 +40,7 @@ export function LeagueCal(props) {
     }
     
     let { id } = useParams()
-    const matches = `http://api.football-data.org/v2/competitions/${id}/matches?season=${year}` 
+    const matches = `http://api.football-data.org/v2/competitions/${id}/matches` 
     useEffect(() => {
         fetch(matches, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
             .then(response => response.json())
@@ -61,7 +61,7 @@ export function LeagueCal(props) {
                         dateFrom={dateFrom}
                         dateTo={dateTo}
                         />
-            <YearSelect yearSwitcher={yearSwitcher} yearArray={[2020, 2019, 2018]} />
+            <YearSelect yearSwitcher={yearSwitcher} yearArray={[2021, 2020, 2019, 2018]} />
             <LeagueCalItems itemsArray={val.matches}
                             dateFrom={dateFrom}
                             dateTo={dateTo} />
