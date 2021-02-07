@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import YearSelect from '../../components/YearSelect/YearSelect'
 import DateFilter, { getCorrectDateFrom, getCorrectDateTo } from '../../components/DateFilter/DateFilter'
-import LeagueCalItem from './LeagueCalItem'
+import LeagueCalItems from './LeagueCalItems'
 
 
 export function LeagueCal(props) {
@@ -49,7 +49,8 @@ export function LeagueCal(props) {
     
     if (!val) { return <div>Loading....</div>}
 
-    return ( <>
+    return (
+        <>
             <h2>{val.competition.name} Calendar</h2>
             <h5>{val.count} matches found</h5>
 
@@ -60,33 +61,10 @@ export function LeagueCal(props) {
                         dateFrom={dateFrom}
                         dateTo={dateTo}
                         />
-                        
             <YearSelect yearSwitcher={yearSwitcher}/>
-                <table>
-                    <thead>
-                    <tr>
-                    <th>Дата</th>
-                    <th>Хозяева</th>
-                    <th>Счет</th>
-                    <th>Гости</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {val.matches
-                        .filter((item) => {
-                            return (new Date(item.utcDate) >= new Date(dateFrom) && 
-                                    new Date(item.utcDate) <= new Date(dateTo) )
-                        })
-                        .map((i, index ) => (
-                            <LeagueCalItem key={index} 
-                                        awayTeam={i.awayTeam.name} 
-                                        homeTeam={i.homeTeam.name} 
-                                        scoreAwayTeam={i.score.fullTime.awayTeam}
-                                        scoreHomeTeam={i.score.fullTime.homeTeam} 
-                                        utcDate={i.utcDate}/>
-                        ))} 
-                    </tbody>
-                </table>
-                </> 
+            <LeagueCalItems itemsArray={val.matches}
+                            dateFrom={dateFrom}
+                            dateTo={dateTo} />
+        </> 
     )
 }
