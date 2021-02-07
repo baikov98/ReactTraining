@@ -6,16 +6,17 @@ import {
 } from "react-router-dom"; 
 
 import SearchInput from '../../components/SearchInput/SearchInput'
+import CompetitionsTable from './CompetitionsTable'
 
 const matches = 'http://api.football-data.org/v2/competitions/2021/matches'
 const url = 'http://api.football-data.org/v2/competitions'
 const availableIDs = [2000, 2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
 
-function getIt() {
+/* function getIt() {
   fetch(matches, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
         .then(response => response.json())
         .then(json => console.log(json))
-}
+} */
 
 function CompetitionItem(props) {
     return (
@@ -68,27 +69,11 @@ export default function CompetitionsList(props) {
                                          endDate={val.currentSeason.endDate}
                                          key={i}/>
                                         ))
- 
+    console.log(leagueArr)
     return (
       <>
       <SearchInput />
-      <table>
-        <thead>
-          <tr>
-            <th>Flag</th>
-            <th>Region</th>
-            <th>Country<br/>code</th>
-            <th>League</th>
-            <th>Teams</th>
-            <th>Calendar</th>
-            <th>Start<br/>Date</th>
-            <th>End<br/>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-                {ItemsCompetition}
-        </tbody>
-      </table>
+      <CompetitionsTable leagueArr={leagueArr} query={query} />
       </>
     )
   }
