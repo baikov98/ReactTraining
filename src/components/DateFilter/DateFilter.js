@@ -49,7 +49,6 @@ export default function DateFilter(props) {
         history.replace({search: searchObj.toString()})
 
         props.dateToSwitcher(dateTo)
-
       }
     
     return (

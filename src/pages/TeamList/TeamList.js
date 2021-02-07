@@ -1,30 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import {
-  Link,
   useParams,
-  useLocation,
-  useHistory
 } from "react-router-dom";
 
-import Team from '../Team/Team'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import YearSelect from '../../components/YearSelect/YearSelect'
+import TeamListTable from './TeamListTable'
 
-
-function TeamItem(props) {
-    return (
-      <tr>
-        <td>{ props.iconUrl ? <img src={props.iconUrl} className='country__icon'/> : null}</td>
-        <td>{props.area}</td>
-        <td><Link to={`/teams/${props.teamid}`}>{props.teamName}</Link></td>
-        <td>{props.website}</td>
-      </tr>
-    )
-  }
-  
- export default function TeamList(props) {
-
-    const query = new URLSearchParams(window.location.search).get('query') || '';
+export default function TeamList(props) {
     const yearParam = new URLSearchParams(window.location.search).get('year') || ''; //getting year from url
     let { id } = useParams()
     const [val, setVal] = useState(null)
@@ -41,12 +24,6 @@ function TeamItem(props) {
     useEffect(() => {}, [window.location.search])
 
     if (!val) { return <div>Loading...</div>}
-
-    console.log(val)
-    const teamListArr = val.teams.filter((val, i) => {
-                            if (query === '') return val;
-                            if (val.name.toLowerCase().includes(query.toLowerCase())) return val })
-    
     return (
         <>
       <h1>{val.competition.name} ({val.competition.area.name})</h1>
@@ -55,33 +32,10 @@ function TeamItem(props) {
       { val.season.winner ? 
             <h4>Winner: <img src={val.season.winner.crestUrl} 
                                  className='country__icon'/> 
-                                 {val.season.winner.name}</h4> : 
-            <></> }
+                                 {val.season.winner.name}</h4> : <></> }
       <SearchInput />
       <YearSelect yearSwitcher={yearSwitcher} />
-      <table>
-        <thead>
-        <tr>
-          <th>icon</th>
-          <th>Region</th>
-          <th>Team Name</th>
-          <th>Website</th>
-          </tr>
-        </thead>
-        <tbody>
-          {teamListArr.map((i, index ) => (
-            <TeamItem  key={index} 
-                       iconUrl={i.crestUrl} 
-                       area={i.area.name} 
-                       teamName={i.name} 
-                       website={i.website}
-                       calendar={`/${id.id}/teams/`}
-                       teamid={i.id}
-                       leagueid={id.id}
-                       />
-                       ))} 
-        </tbody>
-      </table>
+      <TeamListTable teamsArr={val.teams} />
       </>
     )
   }
