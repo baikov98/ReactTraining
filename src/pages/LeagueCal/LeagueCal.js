@@ -1,4 +1,4 @@
-import { func } from 'prop-types';
+
 import React, { useEffect, useState, useRef } from 'react'
 import {
   BrowserRouter as Router,
@@ -11,19 +11,8 @@ import {
 } from "react-router-dom";
 import YearSelect from '../../components/YearSelect/YearSelect'
 import DateFilter, { getCorrectDateFrom, getCorrectDateTo } from '../../components/DateFilter/DateFilter'
+import LeagueCalItem from './LeagueCalItem'
 
-
-function LeagueCalItem(props) {
-    let date = new Date(props.utcDate)
-    return (
-        <tr>
-        <td>{date.toLocaleString()}</td>
-        <td>{props.homeTeam}</td>
-        <td>{props.scoreHomeTeam} : {props.scoreAwayTeam}</td>
-        <td>{props.awayTeam}</td>
-      </tr>
-    )
-}
 
 export function LeagueCal(props) {
     const history = useHistory()
