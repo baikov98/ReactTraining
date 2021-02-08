@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import {
-  Link,
-  useParams,
-  useHistory
-} from "react-router-dom";
+import { useEffect, useState } from 'react'
+import { useParams, useHistory } from "react-router-dom";
 import TeamCompTable from './TeamCompTable'
 import YearSelect from '../../components/YearSelect/YearSelect'
 import DateFilter from '../../components/DateFilter/DateFilter'
@@ -20,9 +16,10 @@ function ActiveCompetition(props) {
 }
 
 export default function Team(props) {
+    const yearArray = [2021, 2020, 2019, 2018]
     const location = new URLSearchParams(window.location.search)
     const history = useHistory()
-    const yearParam = location.get('year') || '2021'; //getting year from url
+    const yearParam = location.get('year') || yearArray[0]; //getting year from url
     const [year, setYear] = useState(yearParam)
     const minDate = `${year}-01-01`
     const maxDate = `${year}-12-31`
@@ -64,7 +61,7 @@ export default function Team(props) {
                     dateFrom={dateFrom}
                     dateTo={dateTo}
                         />
-        <YearSelect yearSwitcher={yearSwitcher} yearArray={[2021, 2020, 2019, 2018]}  />
+        <YearSelect yearSwitcher={yearSwitcher} yearArray={yearArray}  />
         <h4>Active Competitions</h4>
         <TeamCompTable year={year}
                        array={val.activeCompetitions}

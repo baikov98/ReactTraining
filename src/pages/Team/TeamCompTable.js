@@ -1,4 +1,4 @@
-import React from 'react'
+import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery'
 
 function TableItem({ i }) {
     return (
@@ -44,7 +44,12 @@ export default function TeamCompTable({ array, year, dateFrom, dateTo }) {
             {filteredByDate.map((i, index) => (
                 <TableItem key={index} i={i} />
             ))}
-        </CompititionsTable>) : <p>Not found</p>}
+        </CompititionsTable>) : <NotFoundForQuery queryArray={[{name: 'From', 
+                                                          desc: dateFrom},
+                                                          {name: 'To', 
+                                                          desc: dateTo}, 
+                                                          {name: 'year',
+                                                          desc: year}]} /> }
       </>
     )
 }
