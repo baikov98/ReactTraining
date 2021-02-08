@@ -22,27 +22,15 @@ function App() {
     <h1>Top soccer tournaments statistics</h1>
     <h3><Link to='/'>Главная</Link></h3>
       <Switch>
-        <Route path="/:id/teams" exact>
-          <TeamList />
-        </Route>
+        <Route path="/:id/teams" exact component={TeamList} />
+          
+        <Route path="/:id/calendar" exact component={LeagueCal} />
 
-        <Route path="/:id/calendar" exact>
-          <LeagueCal />
-        </Route>
+        <Route path="/teams/:id" exact component={Team} />
+          
+        <Route path="/" exact component={CompetitionsList} />
 
-        <Route path="/teams/:id" exact>
-          <Team />
-        </Route> 
-
-        <Route path="/" exact>
-          <div>
-                <CompetitionsList />
-          </div>
-        </Route>
-
-        <Route path="/">
-          <PageNotFound />
-        </Route>
+        <Route component={PageNotFound} />
 
       </Switch>
     </Router>
