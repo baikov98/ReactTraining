@@ -12,7 +12,7 @@ function TableItem({ i }) {
                 <td>{availableIDs.includes(i.id) ? 
                                 (<Link to={`/${i.id}/teams`}>Teams</Link>) : 'Teams'}</td>
                 <td>{availableIDs.includes(i.id) ? 
-                                (<Link to={`/${i.id}/calendar`}>Teams</Link>) : 'Teams'}</td>
+                                (<Link to={`/${i.id}/calendar`}>Calendar</Link>) : 'Calendar'}</td>
                 <td>{i.currentSeason?.startDate || ''}</td>
                 <td>{i.currentSeason?.endDate || ''}</td>
             </tr>)
@@ -53,8 +53,10 @@ export default function CompetitionsTable({ leagueArr, query, year }) {
         <TableItem key={index} i={i} />
     ))
     return (
-        <LeagueTable>
+        <>
+        { ItemsCompetition.length ? (<LeagueTable>
             {ItemsCompetition}
-        </LeagueTable>
+        </LeagueTable>) : <p>Not found</p>}
+        </>
     )
 }

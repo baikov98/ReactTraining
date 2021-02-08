@@ -22,22 +22,22 @@ export default function CompetitionsList(props) {
     const yearSwitcher = (year) => {
       setYear(year);
       console.log('SWITCH', year)
-  }
+    }
     useEffect(() => {console.log(location)}, [location.search])
     useEffect(() => {
       fetch(url, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
           .then(response => response.json())
-          .then(json => setData(json.competitions))
+          .then(json => setData(json))
     }, [])
     
     if (!data) { return <div>Loading...</div>}
 
-    const leagueArr = data.filter((val) => {
+    const leagueArr = data.competitions.filter((val) => {
                       return availableIDs.includes(val.id)
                       })
     const query = new URLSearchParams(window.location.search).get('query') || '';
     
-    console.log(leagueArr)
+    console.log(data)
     return (
       <>
       <SearchInput />
