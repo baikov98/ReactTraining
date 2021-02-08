@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React from 'react'
 
 function TableItem({ i }) {
     return (
@@ -39,10 +39,12 @@ export default function TeamCompTable({ array, year, dateFrom, dateTo }) {
     })
     
     return (
-        <CompititionsTable>
+      <>
+        {filteredByDate.length ? (<CompititionsTable>
             {filteredByDate.map((i, index) => (
                 <TableItem key={index} i={i} />
             ))}
-        </CompititionsTable>
+        </CompititionsTable>) : <p>Not found</p>}
+      </>
     )
 }

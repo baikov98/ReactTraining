@@ -1,14 +1,12 @@
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
-  useParams,
-  useRouteMatch,
-  useHistory
 } from "react-router-dom";
+
 import CompetitionsList from './pages/CompetitionsList/CompetitionsList'
 import TeamList from './pages/TeamList/TeamList'
 import { LeagueCal } from './pages/LeagueCal/LeagueCal'

@@ -1,5 +1,5 @@
-import { func } from 'prop-types';
-import React, { useEffect, useState } from 'react'
+
+import React from 'react'
 import { useHistory } from "react-router-dom";
 
 export function getCorrectDateFrom(dFrom, minDate, maxDate, history){

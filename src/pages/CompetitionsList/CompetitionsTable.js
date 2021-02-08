@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom"; 
+import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery'
 
 const availableIDs = [2000, 2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
 
@@ -56,7 +57,10 @@ export default function CompetitionsTable({ leagueArr, query, year }) {
         <>
         { ItemsCompetition.length ? (<LeagueTable>
             {ItemsCompetition}
-        </LeagueTable>) : <p>Not found</p>}
+        </LeagueTable>) : <NotFoundForQuery queryArray={[{name: 'search query', 
+                                                          desc: query}, 
+                                                          {name: 'year',
+                                                          desc: year}]} />} 
         </>
     )
 }

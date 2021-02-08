@@ -1,14 +1,6 @@
-
 import React, { useEffect, useState, useRef } from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useLocation,
-  useHistory
-} from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+
 import YearSelect from '../../components/YearSelect/YearSelect'
 import DateFilter, { getCorrectDateFrom, getCorrectDateTo } from '../../components/DateFilter/DateFilter'
 import LeagueCalItems from './LeagueCalItems'

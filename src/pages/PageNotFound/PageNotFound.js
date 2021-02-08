@@ -1,12 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-} from "react-router-dom";
-
+import React from 'react'
 
 export default function PageNotFound(props) {
     return (

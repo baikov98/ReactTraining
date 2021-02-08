@@ -1,12 +1,12 @@
 import React from 'react'
- 
+import { Link } from "react-router-dom";
 function CalItem({ i }) {
   return (
     <tr>
       <td>{new Date(i.utcDate).toLocaleString()}</td>
-      <td>{i.homeTeam.name}</td>
+      <td><Link to={`/teams/${i.homeTeam.id}`}>{i.homeTeam.name}</Link></td> 
       <td>{i.score.fullTime.homeTeam} : {i.score.fullTime.awayTeam}</td>
-      <td>{i.awayTeam.name}</td>
+      <td><Link to={`/teams/${i.awayTeam.id}`}>{i.awayTeam.name}</Link></td>
     </tr>
   )
 }

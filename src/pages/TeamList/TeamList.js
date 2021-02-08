@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-  useParams,
-} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import SearchInput from '../../components/SearchInput/SearchInput'
 import YearSelect from '../../components/YearSelect/YearSelect'
@@ -29,8 +27,7 @@ export default function TeamList(props) {
       <h1>{val.competition.name} ({val.competition.area.name})</h1>
       <h4>Season dates: {val.season.startDate} - {val.season.endDate}</h4>
       <h4>Team count: {val.count}</h4>
-      { val.season.winner ? 
-            <h4>Winner: <img src={val.season.winner.crestUrl} 
+      { val.season.winner ? <h4>Winner: <img src={val.season.winner.crestUrl} 
                                  className='country__icon'/> 
                                  {val.season.winner.name}</h4> : <></> }
       <SearchInput />

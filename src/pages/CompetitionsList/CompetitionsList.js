@@ -16,14 +16,15 @@ const availableIDs = [2000, 2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018
   
 export default function CompetitionsList(props) {
     const loc = new URLSearchParams(window.location.search)
-    let location = useLocation()
+    const query = loc.get('query') || '';
+    
     const [data, setData] = useState(null)
     const [year, setYear] = useState(loc.get('year') || '2020')
     const yearSwitcher = (year) => {
       setYear(year);
       console.log('SWITCH', year)
     }
-    useEffect(() => {console.log(location)}, [location.search])
+    useEffect(() => {console.log(loc)}, [window.location.search])
     useEffect(() => {
       fetch(url, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
           .then(response => response.json())
@@ -35,7 +36,6 @@ export default function CompetitionsList(props) {
     const leagueArr = data.competitions.filter((val) => {
                       return availableIDs.includes(val.id)
                       })
-    const query = new URLSearchParams(window.location.search).get('query') || '';
     
     console.log(data)
     return (
