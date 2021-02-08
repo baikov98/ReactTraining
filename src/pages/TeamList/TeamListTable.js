@@ -1,5 +1,5 @@
-import React from 'react'
 import { Link } from "react-router-dom";
+import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery'
 
 function ItemTeam({ i }) {
     return (
@@ -28,7 +28,7 @@ function TeamsTable({ children }) {
       </table>)
 }
 
-export default function TeamListTable({ teamsArr }) {
+export default function TeamListTable({ teamsArr, year }) {
     const query = new URLSearchParams(window.location.search).get('query') || '';
     const FilteredTeams = teamsArr.filter((val, i) => {
         if (query === '') return val;
@@ -37,7 +37,10 @@ export default function TeamListTable({ teamsArr }) {
         <>
         {FilteredTeams.length ? (<TeamsTable>
         {FilteredTeams.map((i, index) => (<ItemTeam key={index} i={i}/>))}
-        </TeamsTable>) : <p>Not found</p>}
+        </TeamsTable>) : <NotFoundForQuery queryArray={[{name: 'search query', 
+                                                          desc: query}, 
+                                                          {name: 'year',
+                                                          desc: year}]} />}
         </>
     )
 }

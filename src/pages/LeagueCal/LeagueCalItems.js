@@ -1,5 +1,6 @@
-import React from 'react'
 import { Link } from "react-router-dom";
+import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery'
+
 function CalItem({ i }) {
   return (
     <tr>
@@ -17,10 +18,10 @@ function LeagueTable({ children }) {
         <table>
             <thead>
               <tr>
-                <th>Дата</th>
-                <th>Хозяева</th>
-                <th>Счет</th>
-                <th>Гости</th>
+                <th>Date</th>
+                <th>Home team</th>
+                <th>Scores</th>
+                <th>Away team</th>
               </tr>
             </thead>
             <tbody>
@@ -31,7 +32,7 @@ function LeagueTable({ children }) {
     )
 }
 
-export default function LeagueCalItems({ itemsArray, dateFrom, dateTo }) {
+export default function LeagueCalItems({ itemsArray, dateFrom, dateTo, year }) {
     const filteredItems = itemsArray.filter((item) => {
       return (new Date(item.utcDate) >= new Date(dateFrom) && 
               new Date(item.utcDate) <= new Date(dateTo) )
@@ -41,7 +42,12 @@ export default function LeagueCalItems({ itemsArray, dateFrom, dateTo }) {
           {filteredItems.length ? 
           (<LeagueTable>
           {filteredItems.map((i, index) => (<CalItem i={i} key={index} />))}
-          </LeagueTable>) : <p>Not found</p>}
+          </LeagueTable>) : <NotFoundForQuery queryArray={[{name: 'From', 
+                                                          desc: dateFrom},
+                                                          {name: 'To', 
+                                                          desc: dateTo}, 
+                                                          {name: 'year',
+                                                          desc: year}]} /> }
         </>
     )
 }

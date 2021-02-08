@@ -1,5 +1,3 @@
-
-import React from 'react'
 import { useHistory } from "react-router-dom";
 
 export function getCorrectDateFrom(dFrom, minDate, maxDate, history){
@@ -53,13 +51,13 @@ export default function DateFilter(props) {
     
     return (
         <>
-        <label htmlFor="start">Start date:</label>
+        <label htmlFor="start">From:</label>
         <input type="date" id="start" name="trip-start"
                value={dateFrom}
                onChange={inputFromHandle}
                min={props.minDate} 
                max={props.maxDate} />
-        <label htmlFor="start">End date:</label>
+        <label htmlFor="start">To:</label>
         <input type="date" id="start" name="trip-start"
                value={dateTo}
                onChange={inputToHandle}

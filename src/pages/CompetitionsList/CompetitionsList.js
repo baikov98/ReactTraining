@@ -1,4 +1,4 @@
-import React, { useEffect, useState,  } from 'react'
+import { useEffect, useState,  } from 'react'
 import {
   Link,
   useParams,
@@ -17,9 +17,9 @@ const availableIDs = [2000, 2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018
 export default function CompetitionsList(props) {
     const loc = new URLSearchParams(window.location.search)
     const query = loc.get('query') || '';
-    
+    const yearArray = [2020, 2019, 2018, 2017]
     const [data, setData] = useState(null)
-    const [year, setYear] = useState(loc.get('year') || '2020')
+    const [year, setYear] = useState(loc.get('year') || yearArray[0])
     const yearSwitcher = (year) => {
       setYear(year);
       console.log('SWITCH', year)
@@ -41,7 +41,7 @@ export default function CompetitionsList(props) {
     return (
       <>
       <SearchInput />
-      <YearSelect yearSwitcher={yearSwitcher} yearArray={[2020, 2019, 2018, 2017]} />
+      <YearSelect yearSwitcher={yearSwitcher} yearArray={yearArray} />
       <CompetitionsTable leagueArr={leagueArr} query={query} year={year} />
       </>
     )

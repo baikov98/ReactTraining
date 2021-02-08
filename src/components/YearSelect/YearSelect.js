@@ -1,4 +1,3 @@
-import React from 'react'
 import { useHistory } from "react-router-dom";
 
 function SelectOption({ value }) {
@@ -9,7 +8,7 @@ function SelectOption({ value }) {
 
 export default function YearSelect({ yearSwitcher, yearArray }) {
     const searchObj = new URLSearchParams(window.location.search)
-    let year = searchObj.has('year') ? searchObj.get('year') : ''
+    let year = searchObj.has('year') ? searchObj.get('year') : yearArray[0]
 
     const history = useHistory()
 

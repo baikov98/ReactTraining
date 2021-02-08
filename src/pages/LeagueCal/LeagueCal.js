@@ -56,7 +56,8 @@ export function LeagueCal(props) {
             <YearSelect yearSwitcher={yearSwitcher} yearArray={[2021, 2020, 2019, 2018]} />
             <LeagueCalItems itemsArray={val.matches}
                             dateFrom={dateFrom}
-                            dateTo={dateTo} />
+                            dateTo={dateTo}
+                            year={year} />
         </> 
     )
 }

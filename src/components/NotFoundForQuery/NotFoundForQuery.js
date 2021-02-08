@@ -1,4 +1,3 @@
-
 function NotFoundForQuery({ queryArray }) {
     const filtered = queryArray.filter((val) => val.desc)
     const queries = filtered.map((val) => {
