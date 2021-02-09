@@ -1,29 +1,26 @@
+import { useState, useContext } from 'react'
 import { useHistory } from "react-router-dom";
+import Context from '../../context'
 
 function SelectOption({ value }) {
-    return (
-        <option value={value}>{value}</option>
-    )
+    return ( <option value={value}>{value}</option> )
 }
 
-export default function YearSelect({ yearSwitcher, yearArray }) {
-    const searchObj = new URLSearchParams(window.location.search)
-    let year = searchObj.has('year') ? searchObj.get('year') : yearArray[0]
+function YearSelect({ yearSwitcher, yearArray }) {
+    const { setQuery } = useContext(Context)
+    const loc = new URLSearchParams(window.location.search)
+    const [year, setYear] = useState(loc.has('year') ? loc.get('year') : yearArray[0])
 
     const history = useHistory()
 
     const inputHandle = (e) => {
-        if (!searchObj.has('year')) searchObj.append('year', e.target.value);
-        else searchObj.set('year', e.target.value);
-        history.push({
-            search: searchObj.toString()
-        })
-        year = e.target.value
-        yearSwitcher(year)
+        setQuery(history, 'year', e.target.value)
+        setYear(prev => e.target.value)
+        yearSwitcher(e.target.value)
       }
-    const optionsArr = yearArray.map((val, i) => (<SelectOption value={val}
-                                                                key={i} 
-                                                                 />))
+    const optionsArr = yearArray.map((val, i) => 
+            (<SelectOption value={val} key={i} />))
+
     return (
         <>
         <select onChange={inputHandle} value={year}>
@@ -32,3 +29,5 @@ export default function YearSelect({ yearSwitcher, yearArray }) {
         </>
     )
 }
+
+export default YearSelect

@@ -1,4 +1,6 @@
+import { useContext } from 'react'
 import { useHistory } from "react-router-dom";
+import Context from '../../context'
 
 export function getCorrectDateFrom(dFrom, minDate, maxDate, history){
   if (new Date(dFrom) >= new Date(minDate) && new Date(dFrom) <= new Date(maxDate)) return dFrom
@@ -18,35 +20,25 @@ export function getCorrectDateTo(dTo, minDate, maxDate, history){
     return maxDate }
 }
 
-export default function DateFilter(props) {
+export default function DateFilter({ dateFromSwitcher, dateToSwitcher, maxDate, minDate }) {
+    const { setQuery, getQuery } = useContext(Context)
     const history = useHistory()
     const searchObj = new URLSearchParams(window.location.search)
-    let dFrom = searchObj.get('dateFrom')
-    let dTo = searchObj.get('dateTo')
     
-    let dateFrom = searchObj.get('dateFrom') || props.minDate
-    let dateTo = searchObj.get('dateTo') || props.maxDate
+    let dateFrom = searchObj.get('dateFrom') || minDate
+    let dateTo = searchObj.get('dateTo') || maxDate
     
     const inputFromHandle = (e) => {
-        if (new Date(e.target.value) > new Date(dateTo)) dateFrom = dateTo;
-        else dateFrom = e.target.value;
-
-        if (!searchObj.has('dateFrom')) searchObj.append('dateFrom', dateFrom)
-        else searchObj.set('dateFrom', dateFrom)
-        
-        history.replace({search: searchObj.toString()})
-        props.dateFromSwitcher(dateFrom)
+        let result = e.target.value;
+        if (new Date(e.target.value) >= new Date(dateTo)) result = dateTo;
+        setQuery(history, 'dateFrom', result)
+        dateFromSwitcher(result)
       }
     const inputToHandle = (e) => {
-        if (new Date(e.target.value) < new Date(dateFrom)) dateTo = dateFrom;
-        else dateTo = e.target.value;
-
-        if (!searchObj.has('dateTo')) searchObj.append('dateTo', dateTo)
-        else searchObj.set('dateTo', dateTo)
-        
-        history.replace({search: searchObj.toString()})
-
-        props.dateToSwitcher(dateTo)
+        let result = e.target.value;
+        if (new Date(e.target.value) <= new Date(dateFrom)) result = dateFrom;
+        setQuery(history, 'dateTo', result)
+        dateToSwitcher(result)
       }
     
     return (
@@ -55,14 +47,14 @@ export default function DateFilter(props) {
         <input type="date" id="start" name="trip-start"
                value={dateFrom}
                onChange={inputFromHandle}
-               min={props.minDate} 
-               max={props.maxDate} />
+               min={minDate} 
+               max={maxDate} />
         <label htmlFor="start">To:</label>
         <input type="date" id="start" name="trip-start"
                value={dateTo}
                onChange={inputToHandle}
-               min={props.minDate}
-               max={props.maxDate} />
+               min={minDate}
+               max={maxDate} />
         </>  
     )
 }

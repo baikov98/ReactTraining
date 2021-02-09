@@ -1,34 +1,32 @@
-import React, { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useParams, useHistory } from "react-router-dom";
 
+import Context from '../../context'
 import YearSelect from '../../components/YearSelect/YearSelect'
-import DateFilter, { getCorrectDateFrom, getCorrectDateTo } from '../../components/DateFilter/DateFilter'
+import DateFilter from '../../components/DateFilter/DateFilter'
 import LeagueCalItems from './LeagueCalItems'
+const yearArray = [2021, 2020, 2019, 2018]
 
-
-export function LeagueCal(props) {
+function LeagueCal(props) {
+    const { deleteQuery } = useContext(Context)
     const history = useHistory()
-    const location = new URLSearchParams(window.location.search)
+    const loc = new URLSearchParams(window.location.search)
     const [val, setVal] = useState(null)
-    const [year, setYear] = useState(location.get('year') || '2021')
+    const [year, setYear] = useState(loc.get('year') || yearArray[0])
     const minDate = `${year}-01-01`
     const maxDate = `${year}-12-31`
-    const [dateFrom, setDateFrom] = useState(location.get('dateFrom') || minDate)
-    const [dateTo, setDateTo] = useState(location.get('dateTo') || maxDate)
+    const [dateFrom, setDateFrom] = useState(loc.get('dateFrom') || minDate)
+    const [dateTo, setDateTo] = useState(loc.get('dateTo') || maxDate)
 
     const dateFromSwitcher = (date) => setDateFrom(date)
     const dateToSwitcher = (date) => setDateTo(date)
 
     const yearSwitcher = (year) => {
-        let loc = new URLSearchParams(window.location.search)
-        loc.delete('dateFrom')
-        loc.delete('dateTo')
-        history.push({search : loc.toString()})
+        deleteQuery(history, ['dateFrom', 'dateTo'])
         setYear(year);
         setDateFrom(`${year}-01-01`)
         setDateTo(`${year}-12-31`)
         setVal(null)
-        console.log('SWITCH', dateFrom, dateTo)
     }
     
     let { id } = useParams()
@@ -40,7 +38,7 @@ export function LeagueCal(props) {
       }, [year])
     
     if (!val) { return <div>Loading....</div>}
-      console.log(val)
+
     return (
         <>
             <h2>{val.competition.name} Calendar</h2>
@@ -53,7 +51,7 @@ export function LeagueCal(props) {
                         dateFrom={dateFrom}
                         dateTo={dateTo}
                         />
-            <YearSelect yearSwitcher={yearSwitcher} yearArray={[2021, 2020, 2019, 2018]} />
+            <YearSelect yearSwitcher={yearSwitcher} yearArray={yearArray} />
             <LeagueCalItems itemsArray={val.matches}
                             dateFrom={dateFrom}
                             dateTo={dateTo}
@@ -61,3 +59,5 @@ export function LeagueCal(props) {
         </> 
     )
 }
+
+export default LeagueCal

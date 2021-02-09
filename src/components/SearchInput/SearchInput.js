@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useHistory } from "react-router-dom";
+import Context from '../../context'
 
-export default function SearchInput(props) {
+export default function SearchInput({ setQueryString }) {
+    const { setQuery } = useContext(Context)
     const searchObj = new URLSearchParams(window.location.search)
     const query = searchObj.has('query') ? searchObj.get('query') : '';
 
@@ -9,15 +11,9 @@ export default function SearchInput(props) {
     useEffect(() => {setSearch(query)}, [window.location.search])
 
     const history = useHistory()
-    console.log('draw')
     const inputHandle = (e) => {
-        
-        if (!searchObj.has('query')) searchObj.append('query', e.target.value);
-        else if (!e.target.value)    searchObj.delete('query');
-        else searchObj.set('query', e.target.value);
-        history.replace({
-            search: searchObj.toString()
-        })
+        setQuery(history, 'query', e.target.value)
+        setQueryString(e.target.value || '')
         setSearch(e.target.value || '')
       }
     

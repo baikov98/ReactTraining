@@ -4,18 +4,8 @@ import TeamCompTable from './TeamCompTable'
 import YearSelect from '../../components/YearSelect/YearSelect'
 import DateFilter from '../../components/DateFilter/DateFilter'
 
-function ActiveCompetition(props) {
-    return (
-        <tr>
-        <td>{props.region}</td>
-        <td>{props.league}</td>
-        <td>{props.plan}</td>
-        <td>{new Date(props.date).toLocaleDateString()}</td>
-      </tr>
-    )
-}
-
 export default function Team(props) {
+  
     const yearArray = [2021, 2020, 2019, 2018]
     const location = new URLSearchParams(window.location.search)
     const history = useHistory()
