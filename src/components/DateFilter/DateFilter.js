@@ -20,7 +20,7 @@ export function getCorrectDateTo(dTo, minDate, maxDate, history){
     return maxDate }
 }
 
-export default function DateFilter({ dateFromSwitcher, dateToSwitcher, maxDate, minDate }) {
+function DateFilter({ dateFromSwitcher, dateToSwitcher, maxDate, minDate }) {
     const { setQuery, getQuery } = useContext(Context)
     const history = useHistory()
     const searchObj = new URLSearchParams(window.location.search)
@@ -44,13 +44,13 @@ export default function DateFilter({ dateFromSwitcher, dateToSwitcher, maxDate, 
     return (
         <>
         <label htmlFor="start">From:</label>
-        <input type="date" id="start" name="trip-start"
+        <input type="date" id="start" name="date-start"
                value={dateFrom}
                onChange={inputFromHandle}
                min={minDate} 
                max={maxDate} />
         <label htmlFor="start">To:</label>
-        <input type="date" id="start" name="trip-start"
+        <input type="date" id="end" name="date-end"
                value={dateTo}
                onChange={inputToHandle}
                min={minDate}
@@ -58,3 +58,5 @@ export default function DateFilter({ dateFromSwitcher, dateToSwitcher, maxDate, 
         </>  
     )
 }
+
+export default DateFilter

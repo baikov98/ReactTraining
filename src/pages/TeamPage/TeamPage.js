@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useParams, useHistory } from "react-router-dom";
-import TeamCompTable from './TeamCompTable'
+import TeamTable from './TeamTable'
 import YearSelect from '../../components/YearSelect/YearSelect'
 import DateFilter from '../../components/DateFilter/DateFilter'
 
-export default function Team(props) {
-  
+export default function TeamPage(props) {
     const yearArray = [2021, 2020, 2019, 2018]
     const location = new URLSearchParams(window.location.search)
     const history = useHistory()
@@ -53,10 +52,10 @@ export default function Team(props) {
                         />
         <YearSelect yearSwitcher={yearSwitcher} yearArray={yearArray}  />
         <h4>Active Competitions</h4>
-        <TeamCompTable year={year}
-                       array={val.activeCompetitions}
-                       dateFrom={dateFrom}
-                       dateTo={dateTo} />
+        <TeamTable year={year}
+                   array={val.activeCompetitions}
+                   dateFrom={dateFrom}
+                   dateTo={dateTo} />
       </div>
     )
 }

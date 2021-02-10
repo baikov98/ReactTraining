@@ -7,11 +7,11 @@ import {
 } from "react-router-dom";
 import Context from './context' 
 
-import CompetitionsList from './pages/CompetitionsList/CompetitionsList'
-import TeamList from './pages/TeamList/TeamList'
-import LeagueCal from './pages/LeagueCal/LeagueCal'
+import CompetitionsList from './pages/CompetitionsPage/CompetitionsPage'
+import TeamListPage from './pages/TeamListPage/TeamListPage'
+import LeaguePage from './pages/LeaguePage/LeaguePage'
 import PageNotFound from './pages/PageNotFound/PageNotFound'
-import Team from './pages/Team/Team'
+import TeamPage from './pages/TeamPage/TeamPage'
 
 function App() {
   const [searchQuery, setSearchQuery] = useState(window.location.search)
@@ -26,7 +26,6 @@ function App() {
     if (!loc.has(name)) loc.append(name, data);
     else if (!data) loc.delete(name)
     else loc.set(name, data);
-    console.log(loc.toString())
     setSearchQuery(loc.toString())
     history.push({search: loc.toString()})
   }
@@ -45,16 +44,14 @@ function App() {
     <h1>Top soccer tournaments statistics</h1>
     <h3><Link to='/'>Главная</Link></h3>
       <Switch>
-        <Route path="/:id/teams" exact component={TeamList} />
+        <Route path="/:id/teams" exact component={TeamListPage} />
           
-        <Route path="/:id/calendar" exact component={LeagueCal} />
+        <Route path="/:id/calendar" exact component={LeaguePage} />
 
-        <Route path="/teams/:id" exact component={Team} />
+        <Route path="/teams/:id" exact component={TeamPage} />
           
-        <Route path="/" exact >
-          <CompetitionsList />
-        </Route>
-
+        <Route path="/" exact component={CompetitionsList} />
+          
         <Route component={PageNotFound} />
 
       </Switch>

@@ -4,10 +4,10 @@ import { useParams, useHistory } from "react-router-dom";
 import Context from '../../context'
 import YearSelect from '../../components/YearSelect/YearSelect'
 import DateFilter from '../../components/DateFilter/DateFilter'
-import LeagueCalItems from './LeagueCalItems'
+import LeagueTable from './LeagueTable'
 const yearArray = [2021, 2020, 2019, 2018]
 
-function LeagueCal(props) {
+function LeaguePage(props) {
     const { deleteQuery } = useContext(Context)
     const history = useHistory()
     const loc = new URLSearchParams(window.location.search)
@@ -52,7 +52,7 @@ function LeagueCal(props) {
                         dateTo={dateTo}
                         />
             <YearSelect yearSwitcher={yearSwitcher} yearArray={yearArray} />
-            <LeagueCalItems itemsArray={val.matches}
+            <LeagueTable itemsArray={val.matches}
                             dateFrom={dateFrom}
                             dateTo={dateTo}
                             year={year} />
@@ -60,4 +60,4 @@ function LeagueCal(props) {
     )
 }
 
-export default LeagueCal
+export default LeaguePage

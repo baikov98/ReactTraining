@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from 'react'
 import { useHistory } from "react-router-dom";
 import Context from '../../context'
 
-export default function SearchInput({ setQueryString }) {
+function SearchInput({ setQueryString }) {
     const { setQuery } = useContext(Context)
     const searchObj = new URLSearchParams(window.location.search)
     const query = searchObj.has('query') ? searchObj.get('query') : '';
@@ -22,4 +22,4 @@ export default function SearchInput({ setQueryString }) {
     )
 }
 
-
+export default SearchInput

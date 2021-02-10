@@ -7,7 +7,7 @@ import TeamListTable from './TeamListTable'
 
 const yearArray = [2020, 2019, 2018]
 
-export default function TeamList(props) {
+export default function TeamListPage(props) {
     const loc = new URLSearchParams(window.location.search)
     const yearParam = loc.get('year') || yearArray[0]; //getting year from url
     let { id } = useParams()

@@ -9,7 +9,7 @@ const url = 'http://api.football-data.org/v2/competitions'
 const availableIDs = [2000, 2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
 const yearArray = [2020, 2019, 2018, 2017]
   
-export default function CompetitionsList(props) {
+function CompetitionsPage(props) {
     const location = useLocation()
     console.log(location)
     const loc = new URLSearchParams(window.location.search)
@@ -42,3 +42,5 @@ export default function CompetitionsList(props) {
       </>
     )
   }
+
+export default CompetitionsPage

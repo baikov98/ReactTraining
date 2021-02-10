@@ -1,50 +1,24 @@
 import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery'
+import TableTemplate from '../../components/TableTemplate/TableTemplate'
+import TableItem from './TableItem'
 
-function TableItem({ i }) {
-    return (
-        <tr>
-            <td>{i.area.name}</td>
-            <td>{i.name}</td>
-            <td>{i.plan}</td>
-            <td>{new Date(i.lastUpdated).toLocaleDateString()}</td>
-        </tr>
-    )
-}
+const headersArr = ['Region', 'League', 'Plan', 'Date']
 
-function CompititionsTable({ children }) {
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Region</th>
-            <th>League</th>
-            <th>Plan</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {children} 
-        </tbody>
-      </table>)
-}
-
-export default function TeamCompTable({ array, year, dateFrom, dateTo }) {
-    console.log(dateFrom, dateTo)
+function TeamTable({ array, year, dateFrom, dateTo }) {
     const filteredByYear = array.filter((val) => {
         return (new Date(val.lastUpdated).getFullYear() == year)
     })
     const filteredByDate = filteredByYear.filter((val) => {
-      console.log((new Date(val.lastUpdated)).toLocaleDateString(), dateFrom )
       return (new Date(val.lastUpdated) >= new Date(dateFrom) && new Date(val.lastUpdated) <= new Date(dateTo))
     })
     
     return (
       <>
-        {filteredByDate.length ? (<CompititionsTable>
+        {filteredByDate.length ? (<TableTemplate headersArr={headersArr} >
             {filteredByDate.map((i, index) => (
                 <TableItem key={index} i={i} />
             ))}
-        </CompititionsTable>) : <NotFoundForQuery queryArray={[{name: 'From', 
+        </TableTemplate>) : <NotFoundForQuery queryArray={[{name: 'From', 
                                                           desc: dateFrom},
                                                           {name: 'To', 
                                                           desc: dateTo}, 
@@ -53,3 +27,5 @@ export default function TeamCompTable({ array, year, dateFrom, dateTo }) {
       </>
     )
 }
+
+export default TeamTable
