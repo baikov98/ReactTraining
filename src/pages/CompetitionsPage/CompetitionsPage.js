@@ -37,8 +37,12 @@ function CompetitionsPage(props) {
     return (
       <>
       <SearchInput setQueryString={setQueryString} />
-      <YearSelect yearSwitcher={yearSwitcher} yearArray={yearArray}  />
-      <CompetitionsTable leagueArr={leagueArr} query={queryString} year={year} />
+      <YearSelect yearSwitcher={yearSwitcher}
+                  yearArray={yearArray} 
+                  year={year} />
+      <CompetitionsTable leagueArr={leagueArr}
+                         query={queryString}
+                         year={year} />
       </>
     )
   }

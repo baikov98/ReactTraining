@@ -51,7 +51,9 @@ function LeaguePage(props) {
                         dateFrom={dateFrom}
                         dateTo={dateTo}
                         />
-            <YearSelect yearSwitcher={yearSwitcher} yearArray={yearArray} />
+            <YearSelect yearSwitcher={yearSwitcher}
+                        yearArray={yearArray}
+                        year={year} />
             <LeagueTable itemsArray={val.matches}
                             dateFrom={dateFrom}
                             dateTo={dateTo}

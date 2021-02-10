@@ -49,7 +49,9 @@ export default function TeamPage(props) {
                     dateFrom={dateFrom}
                     dateTo={dateTo}
                         />
-        <YearSelect yearSwitcher={yearSwitcher} yearArray={yearArray}  />
+        <YearSelect yearSwitcher={yearSwitcher} 
+                    yearArray={yearArray} 
+                    year={year} />
         <h4>Active Competitions</h4>
         <TeamTable year={year}
                    array={val.activeCompetitions}

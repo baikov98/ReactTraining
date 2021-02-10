@@ -27,6 +27,7 @@ export default function TeamListPage(props) {
     }, [year])
     
     if (!val) { return <div>Loading...</div>}
+    console.log(year)
     return (
         <>
       <h1>{val.competition.name} ({val.competition.area.name})</h1>
@@ -38,8 +39,9 @@ export default function TeamListPage(props) {
       <SearchInput setQueryString={setQueryString} />
       <YearSelect yearSwitcher={yearSwitcher} 
                   yearArray={yearArray}
+                  year={year}
                    />
-      <TeamListTable teamsArr={val.teams} year={year} />
+      <TeamListTable teamsArr={val.teams} year={year}/>
       </>
     )
   }

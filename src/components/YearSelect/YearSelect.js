@@ -6,16 +6,12 @@ function SelectOption({ value }) {
     return ( <option value={value}>{value}</option> )
 }
 
-function YearSelect({ yearSwitcher, yearArray }) {
+function YearSelect({ yearSwitcher, yearArray, year }) {
     const { setQuery } = useContext(Context)
-    const loc = new URLSearchParams(window.location.search)
-    const [year, setYear] = useState(loc.has('year') ? loc.get('year') : yearArray[0])
-
     const history = useHistory()
 
     const inputHandle = (e) => {
         setQuery(history, 'year', e.target.value)
-        setYear(e.target.value)
         yearSwitcher(e.target.value)
       }
     const optionsArr = yearArray.map((val, i) => 
