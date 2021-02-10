@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useParams, useHistory } from "react-router-dom";
 import TeamTable from './TeamTable'
 import YearSelect from '../../components/YearSelect/YearSelect'
 import DateFilter from '../../components/DateFilter/DateFilter'
+import Context from '../../context'
 
 export default function TeamPage(props) {
+    const { deleteQuery } = useContext(Context)
     const yearArray = [2021, 2020, 2019, 2018]
     const location = new URLSearchParams(window.location.search)
     const history = useHistory()
@@ -21,10 +23,7 @@ export default function TeamPage(props) {
 
     const [ val, setVal ] = useState(null)
     const yearSwitcher = (year) => {
-      let loc = new URLSearchParams(window.location.search)
-      loc.delete('dateFrom')
-      loc.delete('dateTo')
-      history.push({search : loc.toString()})
+      deleteQuery(history, ['dateFrom', 'dateTo'])
       setYear(year)
       setDateFrom(`${year}-01-01`)
       setDateTo(`${year}-12-31`)

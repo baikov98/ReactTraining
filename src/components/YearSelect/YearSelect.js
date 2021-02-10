@@ -15,7 +15,7 @@ function YearSelect({ yearSwitcher, yearArray }) {
 
     const inputHandle = (e) => {
         setQuery(history, 'year', e.target.value)
-        setYear(prev => e.target.value)
+        setYear(e.target.value)
         yearSwitcher(e.target.value)
       }
     const optionsArr = yearArray.map((val, i) => 
