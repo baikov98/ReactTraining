@@ -42,7 +42,7 @@ function LeaguePage(props) {
     return (
         <>
             <h2>{val.competition.name} Calendar</h2>
-            <h5>{val.count} matches found</h5>
+            
 
             <DateFilter dateFromSwitcher={dateFromSwitcher}
                         dateToSwitcher={dateToSwitcher}

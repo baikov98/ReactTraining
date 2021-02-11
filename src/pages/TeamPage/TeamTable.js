@@ -15,8 +15,8 @@ function TeamTable({ array, year, dateFrom, dateTo }) {
     return (
       <>
         {filteredByDate.length ? (<TableTemplate headersArr={headersArr} >
-            {filteredByDate.map((i, index) => (
-                <TableItem key={index} i={i} />
+            {filteredByDate.map((i) => (
+                <TableItem key={i.id} i={i} />
             ))}
         </TableTemplate>) : <NotFoundForQuery queryArray={[{name: 'From', 
                                                           desc: dateFrom},

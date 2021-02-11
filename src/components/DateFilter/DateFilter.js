@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { useHistory } from "react-router-dom";
 import Context from '../../context'
 
-export function getCorrectDateFrom(dFrom, minDate, maxDate, history){
+/* export function getCorrectDateFrom(dFrom, minDate, maxDate, history){
   if (new Date(dFrom) >= new Date(minDate) && new Date(dFrom) <= new Date(maxDate)) return dFrom
   else {
     let loc = new URLSearchParams(window.location.search)
@@ -18,15 +18,11 @@ export function getCorrectDateTo(dTo, minDate, maxDate, history){
     loc.set('dateTo', maxDate)
     history.replace({search : loc.toString()})
     return maxDate }
-}
+} */
 
-function DateFilter({ dateFromSwitcher, dateToSwitcher, maxDate, minDate }) {
+function DateFilter({ dateFromSwitcher, dateToSwitcher, maxDate, minDate, dateFrom, dateTo }) {
     const { setQuery, getQuery } = useContext(Context)
     const history = useHistory()
-    const searchObj = new URLSearchParams(window.location.search)
-    
-    let dateFrom = searchObj.get('dateFrom') || minDate
-    let dateTo = searchObj.get('dateTo') || maxDate
     
     const inputFromHandle = (e) => {
         let result = e.target.value;

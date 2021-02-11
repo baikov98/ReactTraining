@@ -11,8 +11,8 @@ function CompetitionsTable({ leagueArr, query, year }) {
                     .filter((val) => {
                         return new Date(val.currentSeason.startDate).getFullYear() == year
                     })
-    const ItemsCompetition = FilteredByYear.map((i, index) => (
-        <TableItem key={index} i={i} />
+    const ItemsCompetition = FilteredByYear.map((i) => (
+        <TableItem key={i.id} i={i} />
     ))
     const headersArr = [' ', 'Region', 'League', 'Calendar', 'Start Date', 'End Date']
     return (

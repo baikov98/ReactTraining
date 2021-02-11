@@ -11,13 +11,13 @@ const yearArray = [2020, 2019, 2018, 2017]
   
 function CompetitionsPage(props) {
     const location = useLocation()
-    console.log(location)
     const loc = new URLSearchParams(window.location.search)
     
     const [queryString, setQueryString] = useState(loc.get('query') || '')
     const [data, setData] = useState(null)
     const [year, setYear] = useState(loc.get('year') || yearArray[0])
     const yearSwitcher = (year) => setYear(year)
+    
     useEffect(() => {
       if (location.search === '') {
         yearSwitcher(yearArray[0])
@@ -36,7 +36,8 @@ function CompetitionsPage(props) {
 
     return (
       <>
-      <SearchInput setQueryString={setQueryString} />
+      <SearchInput setQueryString={setQueryString}
+                   queryString={queryString} />
       <YearSelect yearSwitcher={yearSwitcher}
                   yearArray={yearArray} 
                   year={year} />

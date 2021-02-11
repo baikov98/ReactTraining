@@ -13,7 +13,7 @@ function LeagueTable({ itemsArray, dateFrom, dateTo, year }) {
         <>
           {filteredItems.length ? 
           (<TableTemplate headersArr={headersArr}>
-          {filteredItems.map((i, index) => (<TableItem i={i} key={index} />))}
+          {filteredItems.map((i) => (<TableItem i={i} key={i.id} />))}
           </TableTemplate>) : <NotFoundForQuery queryArray={[{name: 'From', 
                                                           desc: dateFrom},
                                                           {name: 'To', 

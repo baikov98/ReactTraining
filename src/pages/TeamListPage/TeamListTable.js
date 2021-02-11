@@ -12,7 +12,7 @@ function TeamListTable({ teamsArr, year }) {
     return (
         <>
         {FilteredTeams.length ? (<TableTemplate headersArr={headersArr}>
-            {FilteredTeams.map((i, index) => (<TableItem key={index} i={i}/>))}
+            {FilteredTeams.map((i) => (<TableItem key={i.id} i={i}/>))}
             </TableTemplate>) : <NotFoundForQuery queryArray={[{name: 'search query', 
                                                             desc: query}, 
                                                             {name: 'year',

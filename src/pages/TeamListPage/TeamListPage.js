@@ -36,7 +36,8 @@ export default function TeamListPage(props) {
       { val.season.winner ? <h4>Winner: <img src={val.season.winner.crestUrl} 
                                  className='country__icon'/> 
                                  {val.season.winner.name}</h4> : <></> }
-      <SearchInput setQueryString={setQueryString} />
+      <SearchInput setQueryString={setQueryString} 
+                   queryString={queryString} />
       <YearSelect yearSwitcher={yearSwitcher} 
                   yearArray={yearArray}
                   year={year}

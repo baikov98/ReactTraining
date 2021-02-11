@@ -14,19 +14,12 @@ import PageNotFound from './pages/PageNotFound/PageNotFound'
 import TeamPage from './pages/TeamPage/TeamPage'
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState(window.location.search)
-
-  useEffect(() => {
-    setSearchQuery(window.location.search)
-    console.log('MAIN STATE VAL', searchQuery)
-  }, [window.location.search])
 
   const setQuery = (history, name, data) => {
     const loc = new URLSearchParams(window.location.search)
     if (!loc.has(name)) loc.append(name, data);
     else if (!data) loc.delete(name)
     else loc.set(name, data);
-    setSearchQuery(loc.toString())
     history.push({search: loc.toString()})
   }
   const deleteQuery = (history, queryArray) => {
@@ -34,11 +27,10 @@ function App() {
     for (let query of queryArray) loc.delete(query)
     history.push({search: loc.toString()})
   }
-  const getQuery = () => searchQuery;
 
   return (
     <Context.Provider value={
-      {setQuery, deleteQuery, getQuery}
+      {setQuery, deleteQuery}
     }>
     <Router>
     <h1>Top soccer tournaments statistics</h1>

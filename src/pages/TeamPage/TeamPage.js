@@ -5,9 +5,11 @@ import YearSelect from '../../components/YearSelect/YearSelect'
 import DateFilter from '../../components/DateFilter/DateFilter'
 import Context from '../../context'
 
+const yearArray = [2021, 2020, 2019, 2018]
+
 export default function TeamPage(props) {
     const { deleteQuery } = useContext(Context)
-    const yearArray = [2021, 2020, 2019, 2018]
+    
     const location = new URLSearchParams(window.location.search)
     const history = useHistory()
     const yearParam = location.get('year') || yearArray[0]; //getting year from url
@@ -32,16 +34,19 @@ export default function TeamPage(props) {
     const { id } = useParams()
     const teamurl = `http://api.football-data.org/v2/teams/${id}`
     useEffect(() => {
+      console.log('TEAMPAGE FETCH')
         fetch(teamurl, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
           .then(response => response.json())
           .then(json => setVal(json))
     }, [])
+    const goBack = () => history.goBack()
     if (!val) {return <div>Loading ...</div>}
     console.log(val)
     console.log('here', dateFrom)
     return (
         <div>
         <h2>{val.name} ({val.area.name})</h2>
+        <button onClick={goBack}>BACK</button>
         <DateFilter dateFromSwitcher={dateFromSwitcher}
                     dateToSwitcher={dateToSwitcher}
                     minDate={minDate}
