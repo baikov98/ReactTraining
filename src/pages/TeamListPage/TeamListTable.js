@@ -1,10 +1,12 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery'
 import TeamListItem from './TeamListItem'
 import TableTemplate from '../../components/TableTemplate/TableTemplate'
 
 const headersArr = [' ', 'Region', 'Team', 'Venue']
 
-function TeamListTable({ teamsArr, year }) {
+const TeamListTable = ({ teamsArr, year }) => {
     const query = new URLSearchParams(window.location.search).get('query') || '';
     const FilteredTeams = teamsArr.filter((val, i) => {
         if (query === '') return val;
@@ -19,6 +21,11 @@ function TeamListTable({ teamsArr, year }) {
                                                             desc: year}]} />}
             </>
     )
+}
+
+TeamListTable.propTypes = {
+    teamsArr: PropTypes.arrayOf(PropTypes.object), 
+    year: PropTypes.number
 }
 
 export default TeamListTable

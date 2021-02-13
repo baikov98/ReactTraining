@@ -1,3 +1,4 @@
+import React from 'react'
 import { useEffect, useState, useContext } from 'react'
 import { useParams, useHistory } from "react-router-dom";
 
@@ -8,11 +9,11 @@ import CalendarTable from './CalendarTable'
 import useDateFilter from '../../hooks/useDateFilter'
 const yearArray = [2020, 2019, 2018]
 
-function CalendarPage(props) {
+const CalendarPage = (props) => {
     const { deleteQuery } = useContext(PathContext)
     const history = useHistory()
     const loc = new URLSearchParams(window.location.search)
-    const [val, setVal] = useState(null)
+    const [data, setData] = useState(null)
     const [year, setYear] = useState(loc.get('year') || yearArray[0])
 
     let { id } = useParams()
@@ -20,12 +21,12 @@ function CalendarPage(props) {
     useEffect(() => {
         fetch(matches, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
             .then(response => response.json())
-            .then(json => setVal(json))
+            .then(json => setData(json))
     }, [year])
     useEffect(() => {
-        minSwitcher(val ? val.matches[0].utcDate.slice(0, 10) : `${year}-01-01`)
-        maxSwitcher(val ? val.matches[val.matches.length-1].utcDate.slice(0, 10) : `${+year+1}-12-31`)
-    }, [val])
+        minSwitcher(data ? data.matches[0].utcDate.slice(0, 10) : `${year}-01-01`)
+        maxSwitcher(data ? data.matches[data.matches.length-1].utcDate.slice(0, 10) : `${+year+1}-12-31`)
+    }, [data])
     let { minDate, maxDate, 
           dateFrom, dateTo, 
           dateFromSwitcher, dateToSwitcher,
@@ -34,14 +35,14 @@ function CalendarPage(props) {
     const yearSwitcher = (year) => {
         deleteQuery(history, ['dateFrom', 'dateTo'])
         setYear(year);
-        setVal(null)
+        setData(null)
     }
 
-    if (!val) { return <div>Loading....</div>}
-    console.log(val)
+    if (!data) { return <div>Loading....</div>}
+    console.log(data)
     return (
         <>
-            <h2>{val.competition.name} Calendar</h2>
+            <h2>{data.competition.name} Calendar</h2>
             
             <DateFilter dateFromSwitcher={dateFromSwitcher}
                         dateToSwitcher={dateToSwitcher}
@@ -53,7 +54,7 @@ function CalendarPage(props) {
             <YearSelect yearSwitcher={yearSwitcher}
                         yearArray={yearArray}
                         year={year} />
-            <CalendarTable itemsArray={val.matches}
+            <CalendarTable itemsArray={data.matches}
                             dateFrom={dateFrom}
                             dateTo={dateTo}
                             year={year} />

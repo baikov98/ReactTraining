@@ -1,10 +1,13 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 import TableTemplate from '../../components/TableTemplate/TableTemplate'
+import { Link } from "react-router-dom";
 
-function TeamMember({ i }) {
+const TeamMember = ({ i }) => {
     let age = Math.trunc((new Date() - new Date(i.dateOfBirth)) / 31536000000)
     return (
         <tr>
-            <td>{i.name}</td>
+            <td><Link to={`/player/${i.id}`}>{i.name}</Link></td>
             <td>{i.position || i.role}</td>
             <td>{i.countryOfBirth}</td>
             <td>{age}</td>
@@ -13,7 +16,7 @@ function TeamMember({ i }) {
 }
 const headersArr = ['Name', 'Position', 'Birth country', 'Age']
 
-function TeamMembers({ squad }) {
+const TeamMembers = ({ squad }) => {
     const uniqueArray = squad.filter((thing, index) => {
         const _thing = JSON.stringify(thing);
         return index === squad.findIndex(obj => {
@@ -27,6 +30,14 @@ function TeamMembers({ squad }) {
         </TableTemplate> : <></>}
         </>
     )
+}
+
+TeamMember.propTypes = {
+    i: PropTypes.object
+}
+
+TeamMembers.propTypes = {
+    squad: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default TeamMembers

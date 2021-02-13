@@ -1,4 +1,5 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
 import { useHistory } from "react-router-dom";
 import { PathContext } from '../../PathContext'
 
@@ -20,7 +21,7 @@ export function getCorrectDateTo(dTo, minDate, maxDate, history){
     return maxDate }
 } */
 
-function DateFilter({ dateFromSwitcher, dateToSwitcher, maxDate, minDate, dateFrom, dateTo }) {
+const DateFilter = ({ dateFromSwitcher, dateToSwitcher, maxDate, minDate, dateFrom, dateTo }) => {
     const { setQuery, getQuery } = useContext(PathContext)
     const history = useHistory()
     
@@ -54,6 +55,15 @@ function DateFilter({ dateFromSwitcher, dateToSwitcher, maxDate, minDate, dateFr
                max={maxDate} />
         </>  
     )
+}
+
+DateFilter.propTypes = {
+  dateFromSwitcher: PropTypes.func, 
+  dateToSwitcher: PropTypes.func, 
+  maxDate: PropTypes.string, 
+  minDate: PropTypes.string, 
+  dateFrom: PropTypes.string, 
+  dateTo: PropTypes.string
 }
 
 export default DateFilter

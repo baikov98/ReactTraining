@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types'
 
-const CalendarItem = ({ i }) => {
+const PlayerItem = ({ i }) => {
     let finished = i.status === 'FINISHED' || i.status === 'AWARDED'
     let hscore = i.score.fullTime.homeTeam
     let ascore = i.score.fullTime.awayTeam
@@ -21,8 +21,8 @@ const CalendarItem = ({ i }) => {
     )
   }
 
-CalendarItem.propTypes = {
+  PlayerItem.propTypes = {
   i: PropTypes.object
 }
 
-export default CalendarItem
+export default PlayerItem

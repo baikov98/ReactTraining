@@ -1,4 +1,5 @@
-import { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import PropTypes from 'prop-types'
 import { useParams, useHistory } from "react-router-dom";
 import TeamTable from './TeamTable'
 import YearSelect from '../../components/YearSelect/YearSelect'
@@ -8,8 +9,8 @@ import { PathContext } from '../../PathContext'
 import useDateFilter from '../../hooks/useDateFilter'
 const yearArray = [2021, 2020, 2019, 2018]
 
-export default function TeamPage(props) {
-    const [ val, setVal ] = useState(null)
+const TeamPage = (props) => {
+    const [ data, setData ] = useState(null)
     const { deleteQuery } = useContext(PathContext)
     const history = useHistory()
     const loc = new URLSearchParams(window.location.search)
@@ -33,14 +34,14 @@ export default function TeamPage(props) {
       console.log('TEAMPAGE FETCH')
         fetch(teamurl, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
           .then(response => response.json())
-          .then(json => setVal(json))
+          .then(json => setData(json))
     }, [])
     const goBack = () => history.goBack()
-    if (!val) {return <div>Loading ...</div>}
-    console.log(val)
+    if (!data) {return <div>Loading ...</div>}
+    console.log(data)
     return (
         <div>
-        <h2>{val.name} ({val.area.name})</h2>
+        <h2>{data.name} ({data.area.name})</h2>
         <button onClick={goBack}>BACK</button>
         <DateFilter dateFromSwitcher={dateFromSwitcher}
                     dateToSwitcher={dateToSwitcher}
@@ -54,11 +55,12 @@ export default function TeamPage(props) {
                     year={year} />
         <h4>Active Competitions</h4>
         <TeamTable year={year}
-                   array={val.activeCompetitions}
+                   array={data.activeCompetitions}
                    dateFrom={dateFrom}
                    dateTo={dateTo} />
-        {val.squad.length ? <TeamMembers squad={val.squad} /> : <></>}
+        {data.squad.length ? <TeamMembers squad={data.squad} /> : <></>}
       </div>
     )
 }
 
+export default TeamPage

@@ -1,11 +1,12 @@
-import { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import PropTypes from 'prop-types'
 import { useHistory } from "react-router-dom";
 import { PathContext } from '../../PathContext'
 
-function SearchInput({ setQueryString, queryString }) {
+const SearchInput = ({ setQueryString, queryString }) => {
     const { setQuery } = useContext(PathContext)
-
     const history = useHistory()
+    
     const inputHandle = (e) => {
         setQuery(history, 'query', e.target.value)
         setQueryString(e.target.value || '')
@@ -14,6 +15,11 @@ function SearchInput({ setQueryString, queryString }) {
     return (
         <><input type="text" onChange={inputHandle} value={queryString} /></>
     )
+}
+
+SearchInput.propTypes = {
+    setQueryString: PropTypes.func, 
+    queryString: PropTypes.string
 }
 
 export default SearchInput

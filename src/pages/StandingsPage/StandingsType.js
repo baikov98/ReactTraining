@@ -1,10 +1,10 @@
-
-
-function StandingsOption({ value, name }) {
+import React from 'react'
+import PropTypes from 'prop-types'
+const StandingsOption = ({ value, name }) => {
     return ( <option value={value}>{value}</option> )
 }
 
-function StandingsType({ types, changeType, type }) {
+const StandingsType = ({ types, changeType, type }) => {
 
     const inputHandle = (e) => {
         let result = types.filter((val) => val.displayName === e.target.value)
@@ -18,6 +18,17 @@ function StandingsType({ types, changeType, type }) {
         </select>
         </>
     )
+}
+
+StandingsType.propTypes = {
+    types: PropTypes.arrayOf(PropTypes.object), 
+    changeType: PropTypes.func, 
+    type: PropTypes.object, 
+}
+
+StandingsOption.propTypes = {
+    name: PropTypes.string,
+    value: PropTypes.string,
 }
 
 export default StandingsType

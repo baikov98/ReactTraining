@@ -13,6 +13,7 @@ import StandingsPage from './pages/StandingsPage/StandingsPage'
 import CalendarPage from './pages/CalendarPage/CalendarPage'
 import PageNotFound from './pages/PageNotFound/PageNotFound'
 import TeamPage from './pages/TeamPage/TeamPage'
+import PlayerPage from './pages/PlayerPage/PlayerPage'
 
 function App() {
   
@@ -29,6 +30,8 @@ function App() {
           <Route path="/:id/standings" exact component={StandingsPage} />
 
           <Route path="/teams/:id" exact component={TeamPage} />
+
+          <Route path="/player/:id" exact component={PlayerPage} />
             
           <Route path="/" exact component={CompetitionsList} />
             

@@ -1,6 +1,8 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from "react-router-dom";
 
-function StandingsItem({ i }) {
+const StandingsItem = ({ i }) => {
     return (
       <tr>
         <td>{ i.team.crestUrl ? <img src={i.team.crestUrl} className='country__icon'/> : null}</td>
@@ -12,6 +14,10 @@ function StandingsItem({ i }) {
         <td>{i.points}</td>
       </tr>
     )
+}
+
+StandingsItem.propTypes = {
+  i: PropTypes.object
 }
 
 export default StandingsItem

@@ -1,6 +1,8 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from "react-router-dom";
 
-function TeamListItem({ i }) {
+const TeamListItem = ({ i }) => {
     return (
       <tr>
         <td>{ i.crestUrl ? <img src={i.crestUrl} className='country__icon'/> : null}</td>
@@ -9,6 +11,10 @@ function TeamListItem({ i }) {
         <td>{i.venue}</td>
       </tr>
     )
+}
+
+TeamListItem.propTypes = {
+  i: PropTypes.object
 }
 
 export default TeamListItem

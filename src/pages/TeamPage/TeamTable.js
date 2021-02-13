@@ -1,10 +1,12 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery'
 import TableTemplate from '../../components/TableTemplate/TableTemplate'
 import TeamItem from './TeamItem'
 
 const headersArr = ['Region', 'League', 'Plan', 'Date']
 
-function TeamTable({ array, year, dateFrom, dateTo }) {
+const TeamTable = ({ array, year, dateFrom, dateTo }) => {
     const filteredByYear = array.filter((val) => {
         return (new Date(val.lastUpdated).getFullYear() == year)
     })
@@ -26,6 +28,13 @@ function TeamTable({ array, year, dateFrom, dateTo }) {
                                                           desc: year}]} /> }
       </>
     )
+}
+
+TeamTable.propTypes = {
+  array: PropTypes.arrayOf(PropTypes.object), 
+  year: PropTypes.number,
+  dateFrom: PropTypes.string,
+  dateTo: PropTypes.string,
 }
 
 export default TeamTable

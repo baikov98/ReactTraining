@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 const useDateFilter = (year, from, to) => {
     
-    let [minDate, setMinDate] = useState(`${year}-01-01`)
-    let [maxDate, setMaxDate] = useState(`${+year+1}-12-31`)
+    let [minDate, setMinDate] = useState(`${year ? year : +new Date().getFullYear-1}-01-01`)
+    let [maxDate, setMaxDate] = useState(`${year ? +year+1 : new Date().getFullYear}-12-31`)
     let [dateFrom, setDateFrom] = useState(from || minDate)
     let [dateTo, setDateTo] = useState(to || maxDate)
     const dateFromSwitcher = (date) => setDateFrom(date)

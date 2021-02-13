@@ -1,4 +1,7 @@
-function TableTemplate({ children, headersArr }) {
+import React from 'react'
+import PropTypes from 'prop-types'
+
+const TableTemplate = ({ children, headersArr }) => {
     return (<table>
         <thead>
         <tr>
@@ -9,6 +12,11 @@ function TableTemplate({ children, headersArr }) {
           {children} 
         </tbody>
       </table>)
+}
+
+TableTemplate.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.object), 
+  headersArr: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default TableTemplate

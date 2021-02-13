@@ -1,4 +1,6 @@
-function NotFoundForQuery({ queryArray }) {
+import React from 'react'
+
+const NotFoundForQuery = ({ queryArray }) => {
     const filtered = queryArray.filter((val) => val.desc)
     const queries = filtered.map((val) => {
         return `${val.name} - ${val.desc}`

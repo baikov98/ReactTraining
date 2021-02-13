@@ -1,10 +1,12 @@
+import React from 'react'
+import PropTypes, { arrayOf } from 'prop-types'
 import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery'
 import StandingsItem from './StandingsItem'
 import TableTemplate from '../../components/TableTemplate/TableTemplate'
 
 const headersArr = [' ', 'Team', 'PG', 'W', 'D', 'L', 'P']
 
-function StandingsTable({ standingsArr }) {
+const StandingsTable = ({ standingsArr }) => {
     const query = new URLSearchParams(window.location.search).get('query') || '';
     const FilteredTeams = standingsArr.filter((val, i) => {
         if (query === '') return val;
@@ -17,6 +19,10 @@ function StandingsTable({ standingsArr }) {
                                                                 desc: query}, ]} />}
             </>
     )
+}
+
+StandingsTable.propTypes = {
+    standingsArr: arrayOf(PropTypes.object)
 }
 
 export default StandingsTable
