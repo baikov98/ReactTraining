@@ -10,6 +10,8 @@ function TableItem({ i }) {
                                 (<Link to={`/${i.id}/teams`}>{i.name}</Link>) : `${i.name}`}</td>
                 <td>{availableIDs.includes(i.id) ? 
                                 (<Link to={`/${i.id}/calendar`}>Calendar</Link>) : 'Calendar'}</td>
+                <td>{availableIDs.includes(i.id) ? 
+                                (<Link to={`/${i.id}/standings`}>Standings</Link>) : 'Standings'}</td>
                 <td>{i.currentSeason?.startDate || ''}</td>
                 <td>{i.currentSeason?.endDate || ''}</td>
             </tr>)

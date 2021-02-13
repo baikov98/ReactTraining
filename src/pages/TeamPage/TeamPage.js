@@ -3,12 +3,12 @@ import { useParams, useHistory } from "react-router-dom";
 import TeamTable from './TeamTable'
 import YearSelect from '../../components/YearSelect/YearSelect'
 import DateFilter from '../../components/DateFilter/DateFilter'
-import Context from '../../context'
-
+import TeamMembers from './TeamMembers'
+import { PathContext } from '../../PathContext'
 const yearArray = [2021, 2020, 2019, 2018]
 
 export default function TeamPage(props) {
-    const { deleteQuery } = useContext(Context)
+    const { deleteQuery } = useContext(PathContext)
     
     const location = new URLSearchParams(window.location.search)
     const history = useHistory()
@@ -30,7 +30,8 @@ export default function TeamPage(props) {
       setDateFrom(`${year}-01-01`)
       setDateTo(`${year}-12-31`)
     }
-
+    const data = useParams()
+    console.log(data)
     const { id } = useParams()
     const teamurl = `http://api.football-data.org/v2/teams/${id}`
     useEffect(() => {
@@ -39,10 +40,9 @@ export default function TeamPage(props) {
           .then(response => response.json())
           .then(json => setVal(json))
     }, [])
-    const goBack = () => history.goBack()
+    const goBack = () => history.back()
     if (!val) {return <div>Loading ...</div>}
     console.log(val)
-    console.log('here', dateFrom)
     return (
         <div>
         <h2>{val.name} ({val.area.name})</h2>
@@ -62,6 +62,7 @@ export default function TeamPage(props) {
                    array={val.activeCompetitions}
                    dateFrom={dateFrom}
                    dateTo={dateTo} />
+        {val.squad.length ? <TeamMembers squad={val.squad} /> : <></>}
       </div>
     )
 }

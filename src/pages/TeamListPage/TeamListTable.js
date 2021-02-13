@@ -2,7 +2,7 @@ import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery
 import TableItem from './TableItem'
 import TableTemplate from '../../components/TableTemplate/TableTemplate'
 
-const headersArr = [' ', 'Region', 'Team', 'Website']
+const headersArr = [' ', 'Region', 'Team', 'Venue']
 
 function TeamListTable({ teamsArr, year }) {
     const query = new URLSearchParams(window.location.search).get('query') || '';

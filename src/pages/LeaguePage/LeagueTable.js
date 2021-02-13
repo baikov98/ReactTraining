@@ -2,12 +2,13 @@ import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery
 import TableTemplate from '../../components/TableTemplate/TableTemplate'
 import TableItem from './TableItem'
 
-const headersArr = ['Date', 'Home team', 'Score', 'Away team']
+const headersArr = ['Date', 'Home team', 'Score', 'Away team', 'Matchday']
 
 function LeagueTable({ itemsArray, dateFrom, dateTo, year }) {
     const filteredItems = itemsArray.filter((item) => {
-      return (new Date(item.utcDate) >= new Date(dateFrom) && 
-              new Date(item.utcDate) <= new Date(dateTo) )
+      let date = item.utcDate.slice(0, 10)
+      return (new Date(date) >= new Date(dateFrom) && 
+              new Date(date) <= new Date(dateTo) )
     })
     return (
         <>

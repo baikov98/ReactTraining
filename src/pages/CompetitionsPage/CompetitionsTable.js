@@ -14,7 +14,7 @@ function CompetitionsTable({ leagueArr, query, year }) {
     const ItemsCompetition = FilteredByYear.map((i) => (
         <TableItem key={i.id} i={i} />
     ))
-    const headersArr = [' ', 'Region', 'League', 'Calendar', 'Start Date', 'End Date']
+    const headersArr = [' ', 'Region', 'League', 'Calendar', 'Standings', 'Start Date', 'End Date']
     return (
         <>
         { ItemsCompetition.length ? (<TableTemplate headersArr={headersArr}>

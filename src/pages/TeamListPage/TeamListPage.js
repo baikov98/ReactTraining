@@ -27,12 +27,13 @@ export default function TeamListPage(props) {
     }, [year])
     
     if (!val) { return <div>Loading...</div>}
-    console.log(year)
+    console.log(val)
     return (
         <>
       <h1>{val.competition.name} ({val.competition.area.name})</h1>
       <h4>Season dates: {val.season.startDate} - {val.season.endDate}</h4>
       <h4>Team count: {val.count}</h4>
+      <h4>Current Matchday: {val.season.currentMatchday}</h4>
       { val.season.winner ? <h4>Winner: <img src={val.season.winner.crestUrl} 
                                  className='country__icon'/> 
                                  {val.season.winner.name}</h4> : <></> }

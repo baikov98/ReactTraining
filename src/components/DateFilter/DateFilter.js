@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useHistory } from "react-router-dom";
-import Context from '../../context'
+import { PathContext } from '../../PathContext'
 
 /* export function getCorrectDateFrom(dFrom, minDate, maxDate, history){
   if (new Date(dFrom) >= new Date(minDate) && new Date(dFrom) <= new Date(maxDate)) return dFrom
@@ -21,11 +21,12 @@ export function getCorrectDateTo(dTo, minDate, maxDate, history){
 } */
 
 function DateFilter({ dateFromSwitcher, dateToSwitcher, maxDate, minDate, dateFrom, dateTo }) {
-    const { setQuery, getQuery } = useContext(Context)
+    const { setQuery, getQuery } = useContext(PathContext)
     const history = useHistory()
     
     const inputFromHandle = (e) => {
         let result = e.target.value;
+        console.log(result)
         if (new Date(e.target.value) >= new Date(dateTo)) result = dateTo;
         setQuery(history, 'dateFrom', result)
         dateFromSwitcher(result)

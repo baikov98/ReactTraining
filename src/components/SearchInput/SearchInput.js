@@ -1,9 +1,9 @@
 import { useEffect, useState, useContext } from 'react'
 import { useHistory } from "react-router-dom";
-import Context from '../../context'
+import { PathContext } from '../../PathContext'
 
 function SearchInput({ setQueryString, queryString }) {
-    const { setQuery } = useContext(Context)
+    const { setQuery } = useContext(PathContext)
 
     const history = useHistory()
     const inputHandle = (e) => {
