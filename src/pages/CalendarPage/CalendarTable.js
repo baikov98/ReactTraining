@@ -1,10 +1,10 @@
 import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery'
 import TableTemplate from '../../components/TableTemplate/TableTemplate'
-import TableItem from './TableItem'
+import CalendarItem from './CalendarItem'
 
 const headersArr = ['Date', 'Home team', 'Score', 'Away team', 'Matchday']
 
-function LeagueTable({ itemsArray, dateFrom, dateTo, year }) {
+function CalendarTable({ itemsArray, dateFrom, dateTo, year }) {
     const filteredItems = itemsArray.filter((item) => {
       let date = item.utcDate.slice(0, 10)
       return (new Date(date) >= new Date(dateFrom) && 
@@ -14,15 +14,15 @@ function LeagueTable({ itemsArray, dateFrom, dateTo, year }) {
         <>
           {filteredItems.length ? 
           (<TableTemplate headersArr={headersArr}>
-          {filteredItems.map((i) => (<TableItem i={i} key={i.id} />))}
+          {filteredItems.map((i) => (<CalendarItem i={i} key={i.id} />))}
           </TableTemplate>) : <NotFoundForQuery queryArray={[{name: 'From', 
-                                                          desc: dateFrom},
-                                                          {name: 'To', 
-                                                          desc: dateTo}, 
-                                                          {name: 'year',
-                                                          desc: year}]} /> }
+                                                              desc: dateFrom},
+                                                             {name: 'To', 
+                                                              desc: dateTo}, 
+                                                             {name: 'year',
+                                                              desc: year}]} /> }
         </>
     )
 }
 
-export default LeagueTable
+export default CalendarTable

@@ -1,4 +1,4 @@
-import TableItem from './TableItem'
+import CompetitionsItem from './CompetitionsItem'
 import TableTemplate from '../../components/TableTemplate/TableTemplate'
 import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery'
 
@@ -12,7 +12,7 @@ function CompetitionsTable({ leagueArr, query, year }) {
                         return new Date(val.currentSeason.startDate).getFullYear() == year
                     })
     const ItemsCompetition = FilteredByYear.map((i) => (
-        <TableItem key={i.id} i={i} />
+        <CompetitionsItem key={i.id} i={i} />
     ))
     const headersArr = [' ', 'Region', 'League', 'Calendar', 'Standings', 'Start Date', 'End Date']
     return (

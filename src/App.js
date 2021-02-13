@@ -10,7 +10,7 @@ import { PathProvider } from './PathContext'
 import CompetitionsList from './pages/CompetitionsPage/CompetitionsPage'
 import TeamListPage from './pages/TeamListPage/TeamListPage'
 import StandingsPage from './pages/StandingsPage/StandingsPage'
-import LeaguePage from './pages/LeaguePage/LeaguePage'
+import CalendarPage from './pages/CalendarPage/CalendarPage'
 import PageNotFound from './pages/PageNotFound/PageNotFound'
 import TeamPage from './pages/TeamPage/TeamPage'
 
@@ -24,7 +24,7 @@ function App() {
         <Switch>
           <Route path="/:id/teams" exact component={TeamListPage} />
             
-          <Route path="/:id/calendar" exact component={LeaguePage} />
+          <Route path="/:id/calendar" exact component={CalendarPage} />
 
           <Route path="/:id/standings" exact component={StandingsPage} />
 

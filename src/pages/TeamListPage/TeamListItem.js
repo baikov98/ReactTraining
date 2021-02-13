@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function TableItem({ i }) {
+function TeamListItem({ i }) {
     return (
       <tr>
         <td>{ i.crestUrl ? <img src={i.crestUrl} className='country__icon'/> : null}</td>
@@ -11,4 +11,4 @@ function TableItem({ i }) {
     )
 }
 
-export default TableItem
+export default TeamListItem

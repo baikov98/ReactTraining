@@ -1,6 +1,6 @@
 import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery'
 import TableTemplate from '../../components/TableTemplate/TableTemplate'
-import TableItem from './TableItem'
+import TeamItem from './TeamItem'
 
 const headersArr = ['Region', 'League', 'Plan', 'Date']
 
@@ -16,7 +16,7 @@ function TeamTable({ array, year, dateFrom, dateTo }) {
       <>
         {filteredByDate.length ? (<TableTemplate headersArr={headersArr} >
             {filteredByDate.map((i) => (
-                <TableItem key={i.id} i={i} />
+                <TeamItem key={i.id} i={i} />
             ))}
         </TableTemplate>) : <NotFoundForQuery queryArray={[{name: 'From', 
                                                           desc: dateFrom},

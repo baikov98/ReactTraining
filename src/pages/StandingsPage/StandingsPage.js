@@ -5,11 +5,11 @@ import SearchInput from '../../components/SearchInput/SearchInput'
 import StandingsTable from './StandingsTable'
 import StandingsType from './StandingsType'
 import reducer, { types } from './reducer'
-import Context from '../../context'
+import { PathContext } from '../../PathContext'
 
 function StandingsPage(props) {
     const history = useHistory()
-    const { setQuery } = useContext(Context)
+    const { setQuery } = useContext(PathContext)
     const loc = new URLSearchParams(window.location.search)
     let { id } = useParams()
     

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function TableItem({ i }) {
+function CalendarItem({ i }) {
     let finished = i.status === 'FINISHED' || i.status === 'AWARDED'
     let hscore = i.score.fullTime.homeTeam
     let ascore = i.score.fullTime.awayTeam
@@ -19,4 +19,4 @@ function TableItem({ i }) {
     )
   }
 
-export default TableItem
+export default CalendarItem

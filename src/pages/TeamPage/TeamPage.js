@@ -5,33 +5,28 @@ import YearSelect from '../../components/YearSelect/YearSelect'
 import DateFilter from '../../components/DateFilter/DateFilter'
 import TeamMembers from './TeamMembers'
 import { PathContext } from '../../PathContext'
+import useDateFilter from '../../hooks/useDateFilter'
 const yearArray = [2021, 2020, 2019, 2018]
 
 export default function TeamPage(props) {
-    const { deleteQuery } = useContext(PathContext)
-    
-    const location = new URLSearchParams(window.location.search)
-    const history = useHistory()
-    const yearParam = location.get('year') || yearArray[0]; //getting year from url
-    const [year, setYear] = useState(yearParam)
-    const minDate = `${year}-01-01`
-    const maxDate = `${year}-12-31`
-    
-    const [dateFrom, setDateFrom] = useState(location.get('dateFrom') || minDate)
-    const [dateTo, setDateTo] = useState(location.get('dateTo') || maxDate)
-    
-    const dateFromSwitcher = (date) => setDateFrom(date)
-    const dateToSwitcher = (date) => setDateTo(date)
-
     const [ val, setVal ] = useState(null)
+    const { deleteQuery } = useContext(PathContext)
+    const history = useHistory()
+    const loc = new URLSearchParams(window.location.search)
+    const yearParam = loc.get('year') || yearArray[0]
+    const [year, setYear] = useState(yearParam)
+    let { minDate, maxDate, 
+          dateFrom, dateTo, 
+          dateFromSwitcher, dateToSwitcher,
+          minSwitcher, maxSwitcher } = useDateFilter(year, loc.get('dateFrom'), loc.get('dateTo'))
+
     const yearSwitcher = (year) => {
       deleteQuery(history, ['dateFrom', 'dateTo'])
       setYear(year)
-      setDateFrom(`${year}-01-01`)
-      setDateTo(`${year}-12-31`)
+      minSwitcher(`${year}-01-01`)
+      maxSwitcher(`${+year+1}-12-31`)
     }
-    const data = useParams()
-    console.log(data)
+
     const { id } = useParams()
     const teamurl = `http://api.football-data.org/v2/teams/${id}`
     useEffect(() => {
@@ -40,7 +35,7 @@ export default function TeamPage(props) {
           .then(response => response.json())
           .then(json => setVal(json))
     }, [])
-    const goBack = () => history.back()
+    const goBack = () => history.goBack()
     if (!val) {return <div>Loading ...</div>}
     console.log(val)
     return (

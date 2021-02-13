@@ -7,7 +7,7 @@ function SelectOption({ value }) {
 }
 
 function YearSelect({ yearSwitcher, yearArray, year }) {
-    console.log(year)
+
     const { setQuery } = useContext(PathContext)
     const history = useHistory()
 
