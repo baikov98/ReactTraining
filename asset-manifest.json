@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/ReactTraining/static/css/main.e03aee91.chunk.css",
-    "main.js": "/ReactTraining/static/js/main.1143bafb.chunk.js",
-    "main.js.map": "/ReactTraining/static/js/main.1143bafb.chunk.js.map",
+    "main.css": "/ReactTraining/static/css/main.7790711c.chunk.css",
+    "main.js": "/ReactTraining/static/js/main.214e0254.chunk.js",
+    "main.js.map": "/ReactTraining/static/js/main.214e0254.chunk.js.map",
     "runtime-main.js": "/ReactTraining/static/js/runtime-main.71e14755.js",
     "runtime-main.js.map": "/ReactTraining/static/js/runtime-main.71e14755.js.map",
     "static/js/2.05119856.chunk.js": "/ReactTraining/static/js/2.05119856.chunk.js",
@@ -10,13 +10,13 @@
     "static/js/3.7ad39cc1.chunk.js": "/ReactTraining/static/js/3.7ad39cc1.chunk.js",
     "static/js/3.7ad39cc1.chunk.js.map": "/ReactTraining/static/js/3.7ad39cc1.chunk.js.map",
     "index.html": "/ReactTraining/index.html",
-    "static/css/main.e03aee91.chunk.css.map": "/ReactTraining/static/css/main.e03aee91.chunk.css.map",
+    "static/css/main.7790711c.chunk.css.map": "/ReactTraining/static/css/main.7790711c.chunk.css.map",
     "static/js/2.05119856.chunk.js.LICENSE.txt": "/ReactTraining/static/js/2.05119856.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.71e14755.js",
     "static/js/2.05119856.chunk.js",
-    "static/css/main.e03aee91.chunk.css",
-    "static/js/main.1143bafb.chunk.js"
+    "static/css/main.7790711c.chunk.css",
+    "static/js/main.214e0254.chunk.js"
   ]
 }
