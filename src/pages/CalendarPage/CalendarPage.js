@@ -7,6 +7,10 @@ import YearSelect from '../../components/YearSelect/YearSelect'
 import DateFilter from '../../components/DateFilter/DateFilter'
 import CalendarTable from './CalendarTable'
 import useDateFilter from '../../hooks/useDateFilter'
+import Loader from '../../components/Loader/Loader'
+import ShowError from '../../components/ShowError/ShowError'
+import useFetchData from '../../hooks/useFetchData'
+
 const yearArray = [2020, 2019, 2018]
 
 const CalendarPage = (props) => {
@@ -18,11 +22,8 @@ const CalendarPage = (props) => {
 
     let { id } = useParams()
     const matches = `http://api.football-data.org/v2/competitions/${id}/matches/?season=${year}` 
-    useEffect(() => {
-        fetch(matches, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
-            .then(response => response.json())
-            .then(json => setData(json))
-    }, [year])
+    
+    useFetchData(matches, [year], setData)
     useEffect(() => {
         minSwitcher(data ? data.matches[0].utcDate.slice(0, 10) : `${year}-01-01`)
         maxSwitcher(data ? data.matches[data.matches.length-1].utcDate.slice(0, 10) : `${+year+1}-12-31`)
@@ -38,11 +39,12 @@ const CalendarPage = (props) => {
         setData(null)
     }
 
-    if (!data) { return <div>Loading....</div>}
+    if (!data) { return <Loader />}
+    if (!data.competition) { return <ShowError error={data} /> }
     console.log(data)
     return (
         <>
-            <h2>{data.competition.name} Calendar</h2>
+            <h2>{data.competition.name} calendar</h2>
             
             <DateFilter dateFromSwitcher={dateFromSwitcher}
                         dateToSwitcher={dateToSwitcher}
@@ -53,11 +55,11 @@ const CalendarPage = (props) => {
                         />
             <YearSelect yearSwitcher={yearSwitcher}
                         yearArray={yearArray}
-                        year={year} />
+                        year={+year} />
             <CalendarTable itemsArray={data.matches}
                             dateFrom={dateFrom}
                             dateTo={dateTo}
-                            year={year} />
+                            year={+year} />
         </> 
     )
 }

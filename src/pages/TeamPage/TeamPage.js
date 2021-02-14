@@ -7,6 +7,10 @@ import DateFilter from '../../components/DateFilter/DateFilter'
 import TeamMembers from './TeamMembers'
 import { PathContext } from '../../PathContext'
 import useDateFilter from '../../hooks/useDateFilter'
+import Loader from '../../components/Loader/Loader'
+import ShowError from '../../components/ShowError/ShowError'
+import useFetchData from '../../hooks/useFetchData'
+
 const yearArray = [2021, 2020, 2019, 2018]
 
 const TeamPage = (props) => {
@@ -29,35 +33,41 @@ const TeamPage = (props) => {
     }
 
     const { id } = useParams()
-    const teamurl = `http://api.football-data.org/v2/teams/${id}`
-    useEffect(() => {
-      console.log('TEAMPAGE FETCH')
-        fetch(teamurl, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
-          .then(response => response.json())
-          .then(json => setData(json))
-    }, [])
-    const goBack = () => history.goBack()
-    if (!data) {return <div>Loading ...</div>}
+    const team = `http://api.football-data.org/v2/teams/${id}`
+    
+    useFetchData(team, [], setData)
+
+    if (!data) {return <Loader />}
+    if (!data.activeCompetitions) { return <ShowError error={data} /> }
     console.log(data)
     return (
         <div>
-        <h2>{data.name} ({data.area.name})</h2>
-        <button onClick={goBack}>BACK</button>
-        <DateFilter dateFromSwitcher={dateFromSwitcher}
-                    dateToSwitcher={dateToSwitcher}
-                    minDate={minDate}
-                    maxDate={maxDate}
-                    dateFrom={dateFrom}
-                    dateTo={dateTo}
-                        />
-        <YearSelect yearSwitcher={yearSwitcher} 
-                    yearArray={yearArray} 
-                    year={year} />
+        <h2 className='mb-2'>{data.name} ({data.area.name})</h2>
+        {data.crestUrl ? <img src={data.crestUrl} className='mb-2'/> : null} 
+        <ul className='team-info'>
+          <li><strong>Founded:</strong> {data.founded}</li>
+          <li><strong>Venue:</strong> {data.venue}</li>
+          <li><strong>Website:</strong> {data.website}</li>
+          <li><strong>Email:</strong> {data.email}</li>
+        </ul>
+        <div className='.d-inline-flex'>
+          <DateFilter dateFromSwitcher={dateFromSwitcher}
+                      dateToSwitcher={dateToSwitcher}
+                      minDate={minDate}
+                      maxDate={maxDate}
+                      dateFrom={dateFrom}
+                      dateTo={dateTo}
+                          />
+          <YearSelect yearSwitcher={yearSwitcher} 
+                      yearArray={yearArray} 
+                      year={+year} />
+        </div>
         <h4>Active Competitions</h4>
-        <TeamTable year={year}
+        <TeamTable year={+year}
                    array={data.activeCompetitions}
                    dateFrom={dateFrom}
                    dateTo={dateTo} />
+        <h4>Team</h4>
         {data.squad.length ? <TeamMembers squad={data.squad} /> : <></>}
       </div>
     )

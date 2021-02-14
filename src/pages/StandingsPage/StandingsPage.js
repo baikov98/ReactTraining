@@ -7,6 +7,9 @@ import StandingsTable from './StandingsTable'
 import StandingsType from './StandingsType'
 import reducer, { types } from './reducer'
 import { PathContext } from '../../PathContext'
+import Loader from '../../components/Loader/Loader'
+import ShowError from '../../components/ShowError/ShowError'
+import useFetchData from '../../hooks/useFetchData'
 
 const StandingsPage = (props) => {
     const history = useHistory()
@@ -23,24 +26,23 @@ const StandingsPage = (props) => {
       setQuery(history, 'type', data)
     }
 
-    const teams = `http://api.football-data.org/v2/competitions/${id}/standings`
-    useEffect(() => {
-      fetch(teams, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
-          .then(response => response.json())
-          .then(json => setData(json))
-    }, [])
-    
-    if (!data) { return <div>Loading...</div>}
+    const standings = `http://api.football-data.org/v2/competitions/${id}/standings`
+   
+    useFetchData(standings, [], setData)
+    if (!data) { return <Loader />}
+    if (!data.competition) { return <ShowError error={data} /> }
     console.log(data)
     return (
         <>
       <h1>{data.competition.name} ({data.competition.area.name})</h1>
       <h4>Season dates: {data.season.startDate} - {data.season.endDate}</h4>
-      <SearchInput setQueryString={setQueryString} 
-                   queryString={queryString} />
-      <StandingsType types={types} 
-                     changeType={changeType}
-                     type={type} />
+      <div className='d-flex'>
+        <SearchInput setQueryString={setQueryString} 
+                    queryString={queryString} />
+        <StandingsType types={types} 
+                      changeType={changeType}
+                      type={type} />
+      </div>
       <StandingsTable standingsArr={data.standings[type.num].table}  />
       </>
     )

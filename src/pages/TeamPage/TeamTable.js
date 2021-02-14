@@ -4,11 +4,11 @@ import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery
 import TableTemplate from '../../components/TableTemplate/TableTemplate'
 import TeamItem from './TeamItem'
 
-const headersArr = ['Region', 'League', 'Plan', 'Date']
+const headersArr = ['Region', 'League', 'Tier', 'Date']
 
 const TeamTable = ({ array, year, dateFrom, dateTo }) => {
     const filteredByYear = array.filter((val) => {
-        return (new Date(val.lastUpdated).getFullYear() == year)
+        return (new Date(val.lastUpdated).getFullYear() === year)
     })
     const filteredByDate = filteredByYear.filter((val) => {
       return (new Date(val.lastUpdated) >= new Date(dateFrom) && new Date(val.lastUpdated) <= new Date(dateTo))

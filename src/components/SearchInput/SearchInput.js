@@ -11,9 +11,14 @@ const SearchInput = ({ setQueryString, queryString }) => {
         setQuery(history, 'query', e.target.value)
         setQueryString(e.target.value || '')
     }
-    
+    const style = {
+        width: '180px'
+    }
     return (
-        <><input type="text" onChange={inputHandle} value={queryString} /></>
+        <><input type="text" className='form-control mr-2 mb-2' style={style}
+                             placeholder='Search...'
+                             onChange={inputHandle} 
+                             value={queryString} /></>
     )
 }
 

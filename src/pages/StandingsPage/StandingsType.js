@@ -10,9 +10,12 @@ const StandingsType = ({ types, changeType, type }) => {
         let result = types.filter((val) => val.displayName === e.target.value)
         changeType(result[0].num)
     }
+
     return (
         <>
-        <select onChange={inputHandle} value={type.displayName}>
+        <select onChange={inputHandle} 
+                value={type.displayName}
+                className='form-control'>
             {types.map((val) => (<StandingsOption value={val.displayName} 
                                                   key={val.num} />))}
         </select>

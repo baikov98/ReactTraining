@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Link, useLocation } from "react-router-dom"; 
+import { useLocation } from "react-router-dom"; 
 import Context from '../../context'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import CompetitionsTable from './CompetitionsTable'
 import YearSelect from '../../components/YearSelect/YearSelect'
 import Loader from '../../components/Loader/Loader'
+import ShowError from '../../components/ShowError/ShowError'
+import useFetchData from '../../hooks/useFetchData'
 
 const url = 'http://api.football-data.org/v2/competitions'
-const availableIDs = [2000, 2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
+const availableIDs = [2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
 const yearArray = [2020, 2019, 2018, 2017]
 const matches = 'http://api.football-data.org/v2/players/9002/matches'
 const getIt = () => {
@@ -32,27 +34,24 @@ const CompetitionsPage = (props) => {
         setQueryString('')
       }
     }, [location.search])
-    useEffect(() => {
-      getIt()
-      fetch(url, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
-          .then(response => response.json())
-          .then(json => setData(json))
-    }, [])
+
+    useFetchData(url, [], setData)
     
     if (!data) { return <Loader />}
-
+    if (!data.competitions) { return <ShowError error={data} /> }
     const leagueArr = data.competitions.filter((val) => availableIDs.includes(val.id))
-
     return (
       <>
-      <SearchInput setQueryString={setQueryString}
-                   queryString={queryString} />
-      <YearSelect yearSwitcher={yearSwitcher}
-                  yearArray={yearArray} 
-                  year={year} />
+      <div className='d-flex mb-3 mt-3'>
+        <SearchInput setQueryString={setQueryString}
+                    queryString={queryString} />
+        <YearSelect yearSwitcher={yearSwitcher}
+                    yearArray={yearArray} 
+                    year={+year} />
+      </div>
       <CompetitionsTable leagueArr={leagueArr}
                          query={queryString}
-                         year={year} />
+                         year={+year} />
       </>
     )
   }

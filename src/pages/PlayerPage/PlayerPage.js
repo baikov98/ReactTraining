@@ -8,7 +8,9 @@ import YearSelect from '../../components/YearSelect/YearSelect'
 import DateFilter from '../../components/DateFilter/DateFilter'
 import PlayerTable from './PlayerTable'
 import useDateFilter from '../../hooks/useDateFilter'
+import Loader from '../../components/Loader/Loader'
 import ShowError from '../../components/ShowError/ShowError'
+import useFetchData from '../../hooks/useFetchData'
 
 const PlayerPage = (props) => {
     const { deleteQuery } = useContext(PathContext)
@@ -17,13 +19,9 @@ const PlayerPage = (props) => {
     const [data, setData] = useState(null)
 
     let { id } = useParams()
-    const matches = `http://api.football-data.org/v2/players/${id}/matches` 
-    useEffect(() => {
-        fetch(matches, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
-            .then(response => response.json())
-            .then(json => setData(json))
-            .catch(e => setData({fetchError : e}))
-    }, [])
+    const players = `http://api.football-data.org/v2/players/${id}/matches` 
+
+    useFetchData(players, [], setData)
 
     useEffect(() => {
         let currentYear = +new Date().getFullYear()
@@ -39,8 +37,8 @@ const PlayerPage = (props) => {
           dateFromSwitcher, dateToSwitcher,
           minSwitcher, maxSwitcher } = useDateFilter(null, loc.get('dateFrom'), loc.get('dateTo'))
 
-    if (!data) { return <div>Loading....</div>}
-    if (data.fetchError) { return <ShowError error={data.fetchError} /> }
+    if (!data) { return <Loader />}
+    if (!data.player) { return <ShowError error={data} /> }
 
     return (
         <>

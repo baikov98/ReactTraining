@@ -14,19 +14,27 @@ code {
     monospace;
 }
 
-
-table {
-  border-collapse: collapse;
+.container {
+  padding-left: 10px;
+  padding-right: 10px;
+  max-width: 800px;
 }
-td, th {
-  border: 1px solid black;
-  padding: 4px;
+
+.team-info {
+  display: inline-block;
 }
 
 .country__icon {
+  display: inline-block;
   width: 20px;
   height: 20px;
 }
+
+.text-impact {
+  font-family: Impact, serif;
+  font-size: 0.8rem;
+}
+
 
 /* Loader CSS */
 

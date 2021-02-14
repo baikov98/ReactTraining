@@ -3,23 +3,6 @@ import PropTypes from 'prop-types'
 import { useHistory } from "react-router-dom";
 import { PathContext } from '../../PathContext'
 
-/* export function getCorrectDateFrom(dFrom, minDate, maxDate, history){
-  if (new Date(dFrom) >= new Date(minDate) && new Date(dFrom) <= new Date(maxDate)) return dFrom
-  else {
-    let loc = new URLSearchParams(window.location.search)
-    loc.set('dateFrom', minDate)
-    history.replace({search : loc.toString()})
-    return minDate }
-}
-
-export function getCorrectDateTo(dTo, minDate, maxDate, history){
-  if (new Date(dTo) >= new Date(minDate) && new Date(dTo) <= new Date(maxDate)) return dTo
-  else {
-    let loc = new URLSearchParams(window.location.search)
-    loc.set('dateTo', maxDate)
-    history.replace({search : loc.toString()})
-    return maxDate }
-} */
 
 const DateFilter = ({ dateFromSwitcher, dateToSwitcher, maxDate, minDate, dateFrom, dateTo }) => {
     const { setQuery, getQuery } = useContext(PathContext)
@@ -38,22 +21,26 @@ const DateFilter = ({ dateFromSwitcher, dateToSwitcher, maxDate, minDate, dateFr
         setQuery(history, 'dateTo', result)
         dateToSwitcher(result)
       }
-    
+    const style = {
+      
+    }
     return (
-        <>
-        <label htmlFor="start">From:</label>
-        <input type="date" id="start" name="date-start"
-               value={dateFrom}
-               onChange={inputFromHandle}
-               min={minDate} 
-               max={maxDate} />
-        <label htmlFor="start">To:</label>
-        <input type="date" id="end" name="date-end"
-               value={dateTo}
-               onChange={inputToHandle}
-               min={minDate}
-               max={maxDate} />
-        </>  
+        <div className='d-inline-flex mb-2'>
+          <input type="date" id="start" name="date-start"
+                className='form-control mr-2'
+                style={style}
+                value={dateFrom}
+                onChange={inputFromHandle}
+                min={minDate} 
+                max={maxDate} />
+          <input type="date" id="end" name="date-end"
+                className='form-control mr-2'
+                style={style}
+                value={dateTo}
+                onChange={inputToHandle}
+                min={minDate}
+                max={maxDate} />
+        </div>  
     )
 }
 

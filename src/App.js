@@ -20,8 +20,8 @@ function App() {
   return (
     <PathProvider>
       <Router>
-        <h1>Top soccer tournaments statistics</h1>
-        <h3><Link to='/'>Главная</Link></h3>
+        <div className='container mt-2'>
+        <h2><Link to='/'>Top soccer tournaments statistics</Link></h2>
         <Switch>
           <Route path="/:id/teams" exact component={TeamListPage} />
             
@@ -38,6 +38,7 @@ function App() {
           <Route component={PageNotFound} />
 
         </Switch>
+        </div>
       </Router>
     </PathProvider>
   );

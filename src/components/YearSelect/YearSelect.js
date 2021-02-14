@@ -18,9 +18,14 @@ function YearSelect({ yearSwitcher, yearArray, year }) {
     }
     const optionsArr = yearArray.map((val, i) => 
             (<SelectOption value={`${val}/${+val+1}`} key={val} />))
-
+    const style = {
+        maxWidth: '160px'
+    }
     return (
-        <select onChange={inputHandle} value={`${year}/${+year+1}`}>
+        <select onChange={inputHandle} 
+                className='form-control d-inline-flex'
+                style={style}
+                value={`${year}/${+year+1}`}>
             {optionsArr}
         </select>
     )

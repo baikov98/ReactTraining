@@ -5,6 +5,9 @@ import { useParams } from "react-router-dom";
 import SearchInput from '../../components/SearchInput/SearchInput'
 import YearSelect from '../../components/YearSelect/YearSelect'
 import TeamListTable from './TeamListTable'
+import Loader from '../../components/Loader/Loader'
+import ShowError from '../../components/ShowError/ShowError'
+import useFetchData from '../../hooks/useFetchData'
 
 const yearArray = [2020, 2019, 2018]
 
@@ -20,31 +23,32 @@ const TeamListPage = (props) => {
     
     const teams = `http://api.football-data.org/v2/competitions/${id}/teams?season=${year}`
 
-    useEffect(() => {
-      console.log('teamlist year changed')
-      fetch(teams, {headers: { 'X-Auth-Token': 'e161b5cf73d24b83bad26a7af72478e1' }})
-          .then(response => response.json())
-          .then(json => setData(json))
-    }, [year])
+    useFetchData(teams, [year], setData)
     
-    if (!data) { return <div>Loading...</div>}
+    if (!data) { return <Loader />}
+
+    if (!data.competition) { return <ShowError error={data} /> }
     console.log(data)
     return (
       <>
-      <h1>{data.competition.name} ({data.competition.area.name})</h1>
-      <h4>Season dates: {data.season.startDate} - {data.season.endDate}</h4>
-      <h4>Team count: {data.count}</h4>
-      <h4>Current Matchday: {data.season.currentMatchday}</h4>
+      <h2>{data.competition.name} ({data.competition.area.name})</h2>
+      <ul>
+        <li><strong>Season dates:</strong> {data.season.startDate} - {data.season.endDate}</li>
+        <li><strong>Team count:</strong> {data.count}</li>
+        <li><strong>Current Matchday:</strong> {data.season.currentMatchday}</li>
+      </ul>
       { data.season.winner ? <h4>Winner: <img src={data.season.winner.crestUrl} 
                                  className='country__icon'/> 
                                  {data.season.winner.name}</h4> : <></> }
-      <SearchInput setQueryString={setQueryString} 
-                   queryString={queryString} />
-      <YearSelect yearSwitcher={yearSwitcher} 
-                  yearArray={yearArray}
-                  year={year}
-                   />
-      <TeamListTable teamsArr={data.teams} year={year}/>
+      <div className='d-inline-flex'>
+        <SearchInput setQueryString={setQueryString} 
+                      queryString={queryString} />
+        <YearSelect yearSwitcher={yearSwitcher} 
+                    yearArray={yearArray}
+                    year={year}
+                      />
+      </div>
+      <TeamListTable teamsArr={data.teams} year={+year}/>
       </>
     )
   }

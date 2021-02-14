@@ -4,7 +4,7 @@ import NotFoundForQuery from '../../components/NotFoundForQuery/NotFoundForQuery
 import TableTemplate from '../../components/TableTemplate/TableTemplate'
 import CalendarItem from './CalendarItem'
 
-const headersArr = ['Date', 'Home team', 'Score', 'Away team', 'Matchday']
+const headersArr = ['Date', 'Home team', 'Score', 'Away team', 'MD']
 
 const CalendarTable = ({ itemsArray, dateFrom, dateTo, year }) => {
     const filteredItems = itemsArray.filter((item) => {

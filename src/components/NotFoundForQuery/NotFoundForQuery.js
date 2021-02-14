@@ -7,7 +7,7 @@ const NotFoundForQuery = ({ queryArray }) => {
     })
     return (
         <>
-        <p>Not found for: {queries.join(', ')} </p>
+        <p><strong>Not found for:</strong> {queries.join(', ')} </p>
         </>
     )
 }
