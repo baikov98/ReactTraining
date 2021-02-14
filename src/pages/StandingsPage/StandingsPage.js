@@ -26,12 +26,12 @@ const StandingsPage = (props) => {
       setQuery(history, 'type', data)
     }
 
-    const standings = `http://api.football-data.org/v2/competitions/${id}/standings`
+    const standings = `https://api.football-data.org/v2/competitions/${id}/standings`
    
     useFetchData(standings, [], setData)
     if (!data) { return <Loader />}
     if (!data.competition) { return <ShowError error={data} /> }
-    console.log(data)
+
     return (
         <>
       <h1>{data.competition.name} ({data.competition.area.name})</h1>

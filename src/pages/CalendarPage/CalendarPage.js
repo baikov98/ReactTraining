@@ -21,7 +21,7 @@ const CalendarPage = (props) => {
     const [year, setYear] = useState(loc.get('year') || yearArray[0])
 
     let { id } = useParams()
-    const matches = `http://api.football-data.org/v2/competitions/${id}/matches/?season=${year}` 
+    const matches = `https://api.football-data.org/v2/competitions/${id}/matches/?season=${year}` 
     
     useFetchData(matches, [year], setData)
     useEffect(() => {
@@ -41,7 +41,7 @@ const CalendarPage = (props) => {
 
     if (!data) { return <Loader />}
     if (!data.competition) { return <ShowError error={data} /> }
-    console.log(data)
+
     return (
         <>
             <h2>{data.competition.name} calendar</h2>

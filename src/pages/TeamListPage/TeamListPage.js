@@ -21,14 +21,14 @@ const TeamListPage = (props) => {
     const [year, setYear] = useState(yearParam) // year state
     const yearSwitcher = (year) => setYear(year)
     
-    const teams = `http://api.football-data.org/v2/competitions/${id}/teams?season=${year}`
+    const teams = `https://api.football-data.org/v2/competitions/${id}/teams?season=${year}`
 
     useFetchData(teams, [year], setData)
     
     if (!data) { return <Loader />}
 
     if (!data.competition) { return <ShowError error={data} /> }
-    console.log(data)
+
     return (
       <>
       <h2>{data.competition.name} ({data.competition.area.name})</h2>

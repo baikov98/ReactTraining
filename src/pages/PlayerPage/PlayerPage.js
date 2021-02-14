@@ -19,7 +19,7 @@ const PlayerPage = (props) => {
     const [data, setData] = useState(null)
 
     let { id } = useParams()
-    const players = `http://api.football-data.org/v2/players/${id}/matches` 
+    const players = `https://api.football-data.org/v2/players/${id}/matches` 
 
     useFetchData(players, [], setData)
 

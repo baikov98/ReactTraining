@@ -33,13 +33,13 @@ const TeamPage = (props) => {
     }
 
     const { id } = useParams()
-    const team = `http://api.football-data.org/v2/teams/${id}`
+    const team = `https://api.football-data.org/v2/teams/${id}`
     
     useFetchData(team, [], setData)
 
     if (!data) {return <Loader />}
     if (!data.activeCompetitions) { return <ShowError error={data} /> }
-    console.log(data)
+
     return (
         <div>
         <h2 className='mb-2'>{data.name} ({data.area.name})</h2>
