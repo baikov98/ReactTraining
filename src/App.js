@@ -19,7 +19,7 @@ function App() {
   
   return (
     <PathProvider>
-      <Router basename='/ReactTraining'> /* for gh-pages */
+      <Router basename='/ReactTraining'>
         <div className='container mt-2'>
         <h2><Link to='/'>Top soccer tournaments statistics</Link></h2>
         <Switch>
