@@ -49,7 +49,7 @@ const TeamPage = (props) => {
           <li><strong>Venue:</strong> {data.venue}</li>
           <li><strong>Website:</strong> {data.website}</li>
           <li><strong>Email:</strong> {data.email}</li>
-        </ul>
+        </ul> 
         <div className='.d-inline-flex'>
           <DateFilter dateFromSwitcher={dateFromSwitcher}
                       dateToSwitcher={dateToSwitcher}
