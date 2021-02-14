@@ -21,21 +21,17 @@ const DateFilter = ({ dateFromSwitcher, dateToSwitcher, maxDate, minDate, dateFr
         setQuery(history, 'dateTo', result)
         dateToSwitcher(result)
       }
-    const style = {
-      
-    }
+
     return (
         <div className='d-inline-flex mb-2'>
           <input type="date" id="start" name="date-start"
                 className='form-control mr-2'
-                style={style}
                 value={dateFrom}
                 onChange={inputFromHandle}
                 min={minDate} 
                 max={maxDate} />
           <input type="date" id="end" name="date-end"
                 className='form-control mr-2'
-                style={style}
                 value={dateTo}
                 onChange={inputToHandle}
                 min={minDate}
