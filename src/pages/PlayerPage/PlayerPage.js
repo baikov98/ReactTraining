@@ -1,10 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useEffect, useState, useContext } from 'react'
 import { useParams, useHistory } from "react-router-dom";
 
 import { PathContext } from '../../PathContext'
-import YearSelect from '../../components/YearSelect/YearSelect'
 import DateFilter from '../../components/DateFilter/DateFilter'
 import PlayerTable from './PlayerTable'
 import useDateFilter from '../../hooks/useDateFilter'

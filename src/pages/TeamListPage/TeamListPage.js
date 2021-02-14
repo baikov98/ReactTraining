@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import { useParams } from "react-router-dom";
 
 import SearchInput from '../../components/SearchInput/SearchInput'
@@ -18,7 +17,7 @@ const TeamListPage = (props) => {
     
     const [queryString, setQueryString] = useState(loc.get('query') || '')
     const [data, setData] = useState(null)
-    const [year, setYear] = useState(yearParam) // year state
+    const [year, setYear] = useState(yearParam)
     const yearSwitcher = (year) => setYear(year)
     
     const teams = `https://api.football-data.org/v2/competitions/${id}/teams?season=${year}`

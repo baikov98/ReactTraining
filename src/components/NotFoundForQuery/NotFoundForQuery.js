@@ -6,9 +6,7 @@ const NotFoundForQuery = ({ queryArray }) => {
         return `${val.name} - ${val.desc}`
     })
     return (
-        <>
         <p><strong>Not found for:</strong> {queries.join(', ')} </p>
-        </>
     )
 }
 

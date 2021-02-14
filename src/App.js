@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import React from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -19,7 +19,7 @@ function App() {
   
   return (
     <PathProvider>
-      <Router>
+      <Router basename='/ReactTraining'> /* for gh-pages */
         <div className='container mt-2'>
         <h2><Link to='/'>Top soccer tournaments statistics</Link></h2>
         <Switch>
@@ -34,7 +34,7 @@ function App() {
           <Route path="/player/:id" exact component={PlayerPage} />
             
           <Route path="/" exact component={CompetitionsList} />
-            
+          
           <Route component={PageNotFound} />
 
         </Switch>

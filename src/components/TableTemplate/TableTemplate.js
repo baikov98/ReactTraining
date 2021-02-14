@@ -2,10 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const TableTemplate = ({ children, headersArr }) => {
-    return (<table className='table table-striped table-bordered table-hover table-sm'>
+    return (
+            <table className='table table-striped table-bordered table-hover table-sm'>
               <thead className='thead-dark'>
-              <tr>
-                {headersArr.map((val, i) => (<th key={val+i}>{val}</th>))}
+                <tr>
+                  {headersArr.map((val, i) => (<th key={val+i}>{val}</th>))}
                 </tr>
               </thead>
               <tbody className=''>

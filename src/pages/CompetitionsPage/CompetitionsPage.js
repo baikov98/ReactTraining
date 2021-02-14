@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import { useLocation } from "react-router-dom"; 
-import Context from '../../context'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import CompetitionsTable from './CompetitionsTable'
 import YearSelect from '../../components/YearSelect/YearSelect'
@@ -12,7 +10,6 @@ import useFetchData from '../../hooks/useFetchData'
 const url = 'https://api.football-data.org/v2/competitions'
 const availableIDs = [2001, 2002, 2003, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021]
 const yearArray = [2020, 2019, 2018, 2017]
-
 
 const CompetitionsPage = (props) => {
     const location = useLocation()

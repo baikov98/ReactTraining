@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState, useContext } from 'react'
 import { useParams, useHistory } from "react-router-dom";
 import TeamTable from './TeamTable'
 import YearSelect from '../../components/YearSelect/YearSelect'
@@ -43,13 +42,13 @@ const TeamPage = (props) => {
     return (
         <div>
         <h2 className='mb-2'>{data.name} ({data.area.name})</h2>
-        {data.crestUrl ? <img src={data.crestUrl} className='mb-2'/> : null} 
+        {data.crestUrl ? <img src={data.crestUrl} className='mb-2 team-image'/> : null} 
         <ul className='team-info'>
           <li><strong>Founded:</strong> {data.founded}</li>
           <li><strong>Venue:</strong> {data.venue}</li>
           <li><strong>Website:</strong> {data.website}</li>
           <li><strong>Email:</strong> {data.email}</li>
-        </ul>
+        </ul> 
         <div className='.d-inline-flex'>
           <DateFilter dateFromSwitcher={dateFromSwitcher}
                       dateToSwitcher={dateToSwitcher}

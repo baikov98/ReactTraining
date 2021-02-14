@@ -10,7 +10,6 @@ const DateFilter = ({ dateFromSwitcher, dateToSwitcher, maxDate, minDate, dateFr
     
     const inputFromHandle = (e) => {
         let result = e.target.value;
-        console.log(result)
         if (new Date(e.target.value) >= new Date(dateTo)) result = dateTo;
         setQuery(history, 'dateFrom', result)
         dateFromSwitcher(result)

@@ -1,3 +1,8 @@
+
+## Тестовое задание Frontend для SimbirSoft
+GitHub Pages страница - (https://baikov98.github.io/ReactTraining)
+## React 17.0.1 + Bootstrap 4.6
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

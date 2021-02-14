@@ -19,7 +19,7 @@ const TeamListTable = ({ teamsArr, year }) => {
                                                             desc: query}, 
                                                             {name: 'year',
                                                             desc: year}]} />}
-            </>
+        </>
     )
 }
 

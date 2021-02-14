@@ -15,10 +15,10 @@ const SearchInput = ({ setQueryString, queryString }) => {
         width: '180px'
     }
     return (
-        <><input type="text" className='form-control mr-2 mb-2' style={style}
+        <input type="text" className='form-control mr-2 mb-2' style={style}
                              placeholder='Search...'
                              onChange={inputHandle} 
-                             value={queryString} /></>
+                             value={queryString} />
     )
 }
 
